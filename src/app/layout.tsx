@@ -70,6 +70,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Preconnect to external domains */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
@@ -78,6 +79,14 @@ export default function RootLayout({
         />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+        <link rel="dns-prefetch" href="//www.googletagmanager.com" />
+
+        {/* Load fonts with font-display: swap */}
+        <link
+          href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Satoshi:wght@300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet"
+        />
+
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
@@ -91,7 +100,7 @@ export default function RootLayout({
         <meta name="geo.placename" content="Jodhpur, Rajasthan" />
         <meta name="geo.position" content="26.2389;73.0243" />
         <meta name="ICBM" content="26.2389, 73.0243" />
-        
+
         {/* Google Analytics */}
         <script
           async
@@ -111,7 +120,7 @@ export default function RootLayout({
             `,
           }}
         />
-        
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

@@ -5,6 +5,7 @@ import {
   Send,
   MessageCircle,
   ArrowRight,
+  ArrowBigRight,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -18,9 +19,9 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-white relative px-4 min-[700px]:px-10">
+    <footer className="bg-white relative px-4 min-[700px]:px-10 pt-4">
       {/* Gradient Background Image */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-blue-600 to-orange-500 opacity-10"></div>
+      <div className="absolute inset-0 bg-[url('/gradientBg.png')] bg-cover bg-center "></div>
 
       {/* Top Section with White Background */}
       <div className="relative z-10 bg-white rounded-2xl my-8 min-[700px]:my-8">
@@ -55,6 +56,12 @@ export default function Footer() {
                   services
                 </div>
                 <div className="flex flex-col gap-1">
+                  <a
+                    href="/itr-filing-2025-jodhpur"
+                    className="text-[16px] font-bold text-[#473BF0] hover:text-[#128948] transition-colors"
+                  >
+                    ITR Filing 2025 <ArrowBigRight className="w-4 h-4" />
+                  </a>
                   <a
                     href="/services/itr-filing-jodhpur"
                     className="text-[16px] font-normal text-[#1B1819] hover:text-[#128948] transition-colors"

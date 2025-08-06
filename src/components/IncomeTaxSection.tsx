@@ -18,7 +18,10 @@ export default function IncomeTaxSection() {
               Income Tax Filing & Planning
             </h2>
             <p className="text-sm min-[700px]:text-[20px] font-medium text-[#737373] tracking-[-0.40px] leading-[20px] min-[700px]:leading-[32px] font-satoshi">
-              Expert ITR filing services with tax planning to maximize your savings. We handle all types of returns including business, salary, and capital gains with guaranteed accuracy and timely filing.
+              Expert ITR filing services with tax planning to maximize your
+              savings. We handle all types of returns including business,
+              salary, and capital gains with guaranteed accuracy and timely
+              filing.
             </p>
           </div>
 

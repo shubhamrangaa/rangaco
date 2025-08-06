@@ -13,7 +13,11 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative w-full h-[85vh] min-[700px]:h-[695px] bg-white" role="banner" aria-label="Hero section">
+    <section
+      className="relative w-full h-[85vh] min-[700px]:h-[695px] bg-white"
+      role="banner"
+      aria-label="Hero section"
+    >
       {/* Navigation bar */}
       <Navbar />
 
@@ -30,7 +34,11 @@ export default function Hero() {
           </p>
         </header>
 
-        <div className="flex flex-col min-[700px]:flex-row items-center justify-center gap-3 min-[700px]:gap-5 w-full" role="group" aria-label="Call to action buttons">
+        <div
+          className="flex flex-col min-[700px]:flex-row items-center justify-center gap-3 min-[700px]:gap-5 w-full"
+          role="group"
+          aria-label="Call to action buttons"
+        >
           <Button
             variant="secondary"
             icon="folder"

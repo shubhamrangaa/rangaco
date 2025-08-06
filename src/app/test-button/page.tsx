@@ -4,7 +4,7 @@ export default function TestButtonPage() {
   return (
     <div className="p-8 space-y-8">
       <h1 className="text-3xl font-bold">Button Component Test</h1>
-      
+
       <div className="space-y-4">
         <h2 className="text-xl font-semibold">Brand Variant</h2>
         <Button variant="brand" icon="phone">
@@ -28,10 +28,8 @@ export default function TestButtonPage() {
 
       <div className="space-y-4">
         <h2 className="text-xl font-semibold">Tertiary Variant</h2>
-        <Button variant="tertiary">
-          Streamline My GST
-        </Button>
+        <Button variant="tertiary">Streamline My GST</Button>
       </div>
     </div>
   );
-} 
+}

@@ -18,7 +18,10 @@ export default function AuditSection() {
               Statutory Audit & Assurance
             </h2>
             <p className="text-sm min-[700px]:text-[20px] font-medium text-[#737373] tracking-[-0.40px] leading-[20px] min-[700px]:leading-[32px] font-satoshi">
-              Comprehensive audit services ensuring compliance with Companies Act, Income Tax Act, and other regulatory requirements. We provide detailed audit reports and recommendations for business improvement.
+              Comprehensive audit services ensuring compliance with Companies
+              Act, Income Tax Act, and other regulatory requirements. We provide
+              detailed audit reports and recommendations for business
+              improvement.
             </p>
           </div>
 

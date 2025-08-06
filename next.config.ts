@@ -19,7 +19,7 @@ const nextConfig: NextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
   },
-  headers: async () => {
+  async headers() {
     return [
       {
         source: "/(.*)",

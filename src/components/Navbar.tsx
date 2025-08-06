@@ -10,22 +10,35 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Button from "./Button";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
 
   const scrollToSection = (sectionId: string) => {
+    // If we're not on the home page, navigate to home first
+    if (pathname !== "/") {
+      router.push(`/#${sectionId}`);
+      return;
+    }
+    
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
+  const navigateToHome = () => {
+    router.push("/");
+  };
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md rounded-2xl mx-4 min-[700px]:mx-10 my-4 min-[700px]:my-4">
       <div className="flex items-center justify-between px-4 py-2 min-[700px]:px-4 min-[700px]:py-2">
         {/* Logo */}
-        <div className="flex items-center gap-[14px]">
+        <div className="flex items-center gap-[14px] cursor-pointer" onClick={navigateToHome}>
           <Image
             src="/LogoRangaCo.svg"
             alt="Logo Ranga & Co"

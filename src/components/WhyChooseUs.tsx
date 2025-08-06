@@ -22,7 +22,7 @@ export default function WhyChooseUs() {
   ];
 
   return (
-    <section className="bg-white py-6 px-4 min-[700px]:py-20 min-[700px]:px-0">
+    <section id="about" className="bg-white py-6 px-4 min-[700px]:py-20 min-[700px]:px-0">
       <div className="flex flex-col items-center gap-8 min-[700px]:gap-[64px] w-full min-[700px]:w-[890px] min-[700px]:mx-auto">
         {/* Section Title */}
         <div className="text-center">

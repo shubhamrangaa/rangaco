@@ -5,12 +5,7 @@ import Navbar from "./Navbar";
 
 export default function Hero() {
   const openGoogleMaps = () => {
-    const address = "A7, Abhay Chambers, Jalori Gate, Jodhpur, Rajasthan";
-    const encodedAddress = encodeURIComponent(address);
-    window.open(
-      `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`,
-      "_blank"
-    );
+    window.open("https://share.google/K1mhVzJsT1yWjOOy7", "_blank");
   };
 
   const startCall = () => {

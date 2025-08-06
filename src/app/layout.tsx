@@ -91,6 +91,27 @@ export default function RootLayout({
         <meta name="geo.placename" content="Jodhpur, Rajasthan" />
         <meta name="geo.position" content="26.2389;73.0243" />
         <meta name="ICBM" content="26.2389, 73.0243" />
+        
+        {/* Google Analytics */}
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=G-VR86F4PW6B`}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-VR86F4PW6B', {
+                page_title: 'Ranga & Company - Tax Consultants in Jodhpur',
+                page_location: window.location.href,
+                send_page_view: true
+              });
+            `,
+          }}
+        />
+        
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

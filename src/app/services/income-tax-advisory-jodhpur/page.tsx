@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Income-Tax Advisory & Planning in Jodhpur | Rangaco",
     description:
-      "A beginner-friendly yet authoritative guide to income-tax advisory, deductions and year-round tax planning for Jodhpur residents and businesses.",
+      "A beginner-friendly guide to income-tax advisory, deductions and year-round tax planning for Jodhpur residents and businesses.",
     type: "article",
     locale: "en_IN",
     url: "https://www.rangaco.com/services/income-tax-advisory-jodhpur",

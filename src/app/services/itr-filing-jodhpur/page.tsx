@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "ITR Filing in Jodhpur: Step-by-Step Guide (AY 2025-26)",
     description:
-      "Everything you need to know to file your Income-Tax Return online from Jodhpur—beginner friendly yet authoritative.",
+      "Everything you need to know to file your Income-Tax Return online from Jodhpur.",
     type: "article",
     locale: "en_IN",
     url: "https://www.rangaco.com/services/itr-filing-jodhpur",

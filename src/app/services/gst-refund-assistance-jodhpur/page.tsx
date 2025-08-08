@@ -1,4 +1,54 @@
 import BlogTemplate from "@/components/BlogTemplate";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title:
+    "GST Refund Assistance Services in Jodhpur | Professional GST Refund Support | RangaCo",
+  description:
+    "Expert GST refund assistance in Jodhpur. Handle export refunds, inverted duty structure, and excess cash ledger refunds. Service fee 5% of refund (min ₹5,000). Average credit in 4-8 weeks. Professional GST refund support.",
+  keywords:
+    "GST refund assistance Jodhpur, GST refund services, GST refund consultant, GST refund process, GST refund application, GST refund support, GST refund Rajasthan, export refund GST, inverted duty structure refund, excess cash ledger refund, RFD-01 filing",
+  openGraph: {
+    title:
+      "GST Refund Assistance Services in Jodhpur | Professional GST Refund Support",
+    description:
+      "Expert GST refund assistance in Jodhpur. Handle export refunds, inverted duty structure, and excess cash ledger refunds. Service fee 5% of refund.",
+    type: "website",
+    locale: "en_IN",
+    url: "https://rangaco.com/services/gst-refund-assistance-jodhpur",
+    siteName: "RangaCo",
+    images: [
+      {
+        url: "/service-3-409fe6.png",
+        width: 1200,
+        height: 630,
+        alt: "GST Refund Assistance Services in Jodhpur",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title:
+      "GST Refund Assistance Services in Jodhpur | Professional GST Refund Support",
+    description:
+      "Expert GST refund assistance in Jodhpur. Handle export refunds, inverted duty structure, and excess cash ledger refunds.",
+    images: ["/service-3-409fe6.png"],
+  },
+  alternates: {
+    canonical: "https://rangaco.com/services/gst-refund-assistance-jodhpur",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+};
 
 const gstRefundAssistancePost = {
   title: "GST Refund Assistance in Jodhpur",

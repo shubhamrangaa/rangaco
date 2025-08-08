@@ -1,4 +1,52 @@
 import BlogTemplate from "@/components/BlogTemplate";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title:
+    "GST Return Filing Services in Jodhpur | GSTR-3B & GSTR-1 Filing | RangaCo",
+  description:
+    "Professional GST return filing services in Jodhpur. File GSTR-3B & GSTR-1 on time to avoid ₹50/day late fees. Input tax credit reconciliation included. Plans from ₹799 per return. Expert GST return filing support.",
+  keywords:
+    "GST return filing Jodhpur, GSTR-3B filing, GSTR-1 filing, GST return filing services, GST return filing consultant, GST return filing fees, GST return filing online, GST return filing Rajasthan, GST return filing support, GST return filing assistance, input tax credit reconciliation",
+  openGraph: {
+    title: "GST Return Filing Services in Jodhpur | GSTR-3B & GSTR-1 Filing",
+    description:
+      "Professional GST return filing services in Jodhpur. File GSTR-3B & GSTR-1 on time to avoid late fees. Plans from ₹799 per return.",
+    type: "website",
+    locale: "en_IN",
+    url: "https://rangaco.com/services/gst-return-filing-jodhpur",
+    siteName: "RangaCo",
+    images: [
+      {
+        url: "/service-2-409fe6.png",
+        width: 1200,
+        height: 630,
+        alt: "GST Return Filing Services in Jodhpur",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "GST Return Filing Services in Jodhpur | GSTR-3B & GSTR-1 Filing",
+    description:
+      "Professional GST return filing services in Jodhpur. File GSTR-3B & GSTR-1 on time to avoid late fees.",
+    images: ["/service-2-409fe6.png"],
+  },
+  alternates: {
+    canonical: "https://rangaco.com/services/gst-return-filing-jodhpur",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+};
 
 const gstReturnFilingPost = {
   title: "GST Return Filing (GSTR-3B & GSTR-1) in Jodhpur",

@@ -1,4 +1,52 @@
 import BlogTemplate from "@/components/BlogTemplate";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title:
+    "GST Registration Services in Jodhpur | RangaCo - Professional GST Registration",
+  description:
+    "Complete GST registration services in Jodhpur. Expert assistance for GST registration with 3-5 days turnaround. Documents required: PAN, Aadhaar, address proof. Starting at ₹2,999. Get your GSTIN quickly with our professional support.",
+  keywords:
+    "GST registration Jodhpur, GST registration services, GST registration consultant, GST registration documents, GST registration process, GST registration fees, GST registration online, GST registration Rajasthan, GST registration support, GST registration assistance",
+  openGraph: {
+    title: "GST Registration Services in Jodhpur | RangaCo",
+    description:
+      "Complete GST registration services in Jodhpur. Expert assistance for GST registration with 3-5 days turnaround. Starting at ₹2,999.",
+    type: "website",
+    locale: "en_IN",
+    url: "https://rangaco.com/services/gst-registration-jodhpur",
+    siteName: "RangaCo",
+    images: [
+      {
+        url: "/gst-compliance-image-50823b.png",
+        width: 1200,
+        height: 630,
+        alt: "GST Registration Services in Jodhpur",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "GST Registration Services in Jodhpur | RangaCo",
+    description:
+      "Complete GST registration services in Jodhpur. Expert assistance for GST registration with 3-5 days turnaround.",
+    images: ["/gst-compliance-image-50823b.png"],
+  },
+  alternates: {
+    canonical: "https://rangaco.com/services/gst-registration-jodhpur",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+};
 
 const gstRegistrationPost = {
   title: "GST Registration Services in Jodhpur",

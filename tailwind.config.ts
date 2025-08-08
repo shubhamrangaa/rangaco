@@ -5,7 +5,12 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        satoshi: ["var(--font-satoshi)", "sans-serif"],
+        satoshi: [
+          "var(--font-satoshi)",
+          "system-ui",
+          "-apple-system",
+          "sans-serif",
+        ],
         "dm-serif": ["var(--font-dm-serif)", "serif"],
       },
       screens: {

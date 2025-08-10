@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     siteName: "RangaCo",
     images: [
       {
-        url: "/service-2-409fe6.png",
+        url: "/gst-compliance-image-50823b.png",
         width: 1200,
         height: 630,
         alt: "GST Return Filing Services in Jodhpur",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     title: "GST Return Filing Services in Jodhpur | GSTR-3B & GSTR-1 Filing",
     description:
       "Professional GST return filing services in Jodhpur. File GSTR-3B & GSTR-1 on time to avoid late fees.",
-    images: ["/service-2-409fe6.png"],
+    images: ["/gst-compliance-image-50823b.png"],
   },
   alternates: {
     canonical: "https://rangaco.com/services/gst-return-filing-jodhpur",

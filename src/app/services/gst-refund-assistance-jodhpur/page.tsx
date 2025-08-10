@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     siteName: "RangaCo",
     images: [
       {
-        url: "/service-3-409fe6.png",
+        url: "/gst-compliance-image-50823b.png",
         width: 1200,
         height: 630,
         alt: "GST Refund Assistance Services in Jodhpur",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
       "GST Refund Assistance Services in Jodhpur | Professional GST Refund Support",
     description:
       "Expert GST refund assistance in Jodhpur. Handle export refunds, inverted duty structure, and excess cash ledger refunds.",
-    images: ["/service-3-409fe6.png"],
+    images: ["/gst-compliance-image-50823b.png"],
   },
   alternates: {
     canonical: "https://rangaco.com/services/gst-refund-assistance-jodhpur",

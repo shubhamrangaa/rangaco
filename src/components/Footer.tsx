@@ -69,6 +69,12 @@ export default function Footer() {
                     ITR Filing
                   </a>
                   <a
+                    href="/small-business-itr-jodhpur"
+                    className="text-[16px] font-normal text-[#1B1819] hover:text-[#128948] transition-colors"
+                  >
+                    Small Business ITR Filing
+                  </a>
+                  <a
                     href="/services/gst-registration-jodhpur"
                     className="text-[16px] font-normal text-[#1B1819] hover:text-[#128948] transition-colors"
                   >

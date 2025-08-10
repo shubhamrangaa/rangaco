@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     siteName: "RangaCo",
     images: [
       {
-        url: "/service-4-409fe6.png",
+        url: "/income-tax-image-382d39.png",
         width: 1200,
         height: 630,
         alt: "Statutory & Internal Audit Services in Jodhpur",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
       "Statutory & Internal Audit Services in Jodhpur | Professional Audit Firm",
     description:
       "Professional statutory and internal audit services in Jodhpur. Mandatory audit for companies with turnover above ₹40 lakh.",
-    images: ["/service-4-409fe6.png"],
+    images: ["/income-tax-image-382d39.png"],
   },
   alternates: {
     canonical: "https://rangaco.com/services/statutory-audit-jodhpur",

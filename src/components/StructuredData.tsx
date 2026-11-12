@@ -33,11 +33,6 @@ export default function StructuredData() {
     ],
     "foundingDate": "1988",
     "numberOfEmployees": "10-50",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "reviewCount": "2500"
-    },
     "sameAs": [
       "https://www.youtube.com/@rangaco",
       "https://www.linkedin.com/company/rangaco"

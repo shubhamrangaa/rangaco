@@ -25,7 +25,7 @@ export default function NotFound() {
         <div className="space-y-4">
           <Link
             href="/"
-            className="inline-block bg-[#128948] text-white px-6 py-3 rounded-2xl font-medium hover:bg-[#0f6b3a] transition-colors"
+            className="inline-block bg-brand text-white px-6 py-3 rounded-2xl font-medium hover:bg-brand-dark transition-colors"
           >
             Go to Homepage
           </Link>
@@ -34,7 +34,7 @@ export default function NotFound() {
             <p>Or contact us directly:</p>
             <a
               href="tel:+919829021030"
-              className="text-[#128948] hover:underline"
+              className="text-brand hover:underline"
             >
               +91 98290 21030
             </a>

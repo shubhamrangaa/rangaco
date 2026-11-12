@@ -62,7 +62,7 @@ export default function Hero() {
       </div>
 
       {/* Background ellipse */}
-      <div className="absolute w-[904px] h-[367px] top-[-239px] left-[214px] bg-[#128948] rounded-[452px/183.5px] blur-[400px]" />
+      <div className="absolute w-[904px] h-[367px] top-[-239px] left-[214px] bg-brand rounded-[452px/183.5px] blur-[400px]" />
     </section>
   );
 }

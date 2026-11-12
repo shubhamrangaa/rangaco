@@ -1,9 +1,21 @@
 import { MetadataRoute } from "next";
+import { POSTS } from "@/lib/blog/posts";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://rangaco.com";
 
+  const blog: MetadataRoute.Sitemap = [
+    { url: `${baseUrl}/blog`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+    ...POSTS.filter((p) => p.href.startsWith("/blog/")).map((p) => ({
+      url: `${baseUrl}${p.href}`,
+      lastModified: new Date(p.updated ?? p.published),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+  ];
+
   return [
+    ...blog,
     {
       url: baseUrl,
       lastModified: new Date(),

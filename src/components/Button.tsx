@@ -24,17 +24,17 @@ export default function Button({
   "aria-label": ariaLabel,
 }: ButtonProps) {
   const baseClasses =
-    "flex items-center justify-center gap-2 px-6 py-3 rounded-2xl font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
+    "flex items-center justify-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
 
   const variantClasses = {
     brand:
-      "bg-[#128948] text-white hover:bg-[#0f6b3a] border-none outline-none focus:ring-[#128948]",
+      "bg-brand text-white hover:bg-brand-dark border-none outline-none focus:ring-brand",
     primary:
-      "bg-[#101010] text-white hover:bg-[#2a2a2a] border-none outline-none focus:ring-[#101010]",
+      "bg-ink-strong text-white hover:bg-[#2a2a2a] border-none outline-none focus:ring-ink-strong",
     secondary:
-      "bg-[#E6E6E6] text-[#101010] hover:bg-[#d4d4d4] border-none outline-none focus:ring-[#101010]",
+      "bg-[#E6E6E6] text-ink-strong hover:bg-[#d4d4d4] border-none outline-none focus:ring-ink-strong",
     tertiary:
-      "bg-transparent text-[#128948] hover:bg-[#128948]/10 border-none outline-none focus:ring-[#128948]",
+      "bg-transparent text-brand hover:bg-brand/10 border-none outline-none focus:ring-brand",
   };
 
   const iconComponent = {

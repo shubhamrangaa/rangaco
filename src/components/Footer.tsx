@@ -53,61 +53,61 @@ export default function Footer() {
             <div className="flex flex-col min-[700px]:flex-row gap-6 min-[700px]:gap-4 w-full min-[700px]:w-[619px]">
               {/* Services */}
               <div className="flex flex-col gap-3 min-[700px]:gap-6 w-full">
-                <div className="text-[10px] font-medium text-[#1B1819] opacity-60 tracking-[0.4px] uppercase">
+                <div className="text-[10px] font-medium text-ink opacity-60 tracking-[0.4px] uppercase">
                   services
                 </div>
                 <div className="flex flex-col gap-1">
                   <a
                     href="/itr-filing-2025-jodhpur"
-                    className="text-[16px] font-bold text-[#473BF0] hover:text-[#128948] transition-colors"
+                    className="text-[16px] font-bold text-[#473BF0] hover:text-brand transition-colors"
                   >
                     ITR Filing 2025 <ArrowBigRight className="w-4 h-4" />
                   </a>
                   <a
                     href="/services/itr-filing-jodhpur"
-                    className="text-[16px] font-normal text-[#1B1819] hover:text-[#128948] transition-colors"
+                    className="text-[16px] font-normal text-ink hover:text-brand transition-colors"
                   >
                     ITR Filing
                   </a>
                   <a
                     href="/small-business-itr-jodhpur"
-                    className="text-[16px] font-normal text-[#1B1819] hover:text-[#128948] transition-colors"
+                    className="text-[16px] font-normal text-ink hover:text-brand transition-colors"
                   >
                     Small Business ITR Filing
                   </a>
                   <a
                     href="/services/gst-registration-jodhpur"
-                    className="text-[16px] font-normal text-[#1B1819] hover:text-[#128948] transition-colors"
+                    className="text-[16px] font-normal text-ink hover:text-brand transition-colors"
                   >
                     GST Registration
                   </a>
                   <a
                     href="/services/gst-return-filing-jodhpur"
-                    className="text-[16px] font-normal text-[#1B1819] hover:text-[#128948] transition-colors"
+                    className="text-[16px] font-normal text-ink hover:text-brand transition-colors"
                   >
                     GST Return (GSTR-3B / 3A)
                   </a>
                   <a
                     href="/services/tds-tcs-compliance-jodhpur"
-                    className="text-[16px] font-normal text-[#1B1819] hover:text-[#128948] transition-colors"
+                    className="text-[16px] font-normal text-ink hover:text-brand transition-colors"
                   >
                     TDS / TCS Compliance
                   </a>
                   <a
                     href="/services/statutory-audit-jodhpur"
-                    className="text-[16px] font-normal text-[#1B1819] hover:text-[#128948] transition-colors"
+                    className="text-[16px] font-normal text-ink hover:text-brand transition-colors"
                   >
                     Audit & Assurance
                   </a>
                   <a
                     href="/services/accounting-payroll-jodhpur"
-                    className="text-[16px] font-normal text-[#1B1819] hover:text-[#128948] transition-colors"
+                    className="text-[16px] font-normal text-ink hover:text-brand transition-colors"
                   >
                     Accounting & Payroll
                   </a>
                   <a
                     href="/services/virtual-cfo-jodhpur"
-                    className="text-[16px] font-normal text-[#1B1819] hover:text-[#128948] transition-colors"
+                    className="text-[16px] font-normal text-ink hover:text-brand transition-colors"
                   >
                     Virtual CFO
                   </a>
@@ -116,27 +116,33 @@ export default function Footer() {
 
               {/* Company */}
               <div className="flex flex-col gap-3 min-[700px]:gap-6 w-full">
-                <div className="text-[10px] font-medium text-[#1B1819] opacity-60 tracking-[0.4px] uppercase">
+                <div className="text-[10px] font-medium text-ink opacity-60 tracking-[0.4px] uppercase">
                   company
                 </div>
                 <div className="flex flex-col gap-1">
                   <a
                     href="/about"
-                    className="text-[16px] font-normal text-[#1B1819] hover:text-[#128948] transition-colors"
+                    className="text-[16px] font-normal text-ink hover:text-brand transition-colors"
                   >
                     About us
                   </a>
                   <a
                     href="/about#testimonials"
-                    className="text-[16px] font-normal text-[#1B1819] hover:text-[#128948] transition-colors"
+                    className="text-[16px] font-normal text-ink hover:text-brand transition-colors"
                   >
                     Testimonials
                   </a>
                   <Link
                     href="/#faq"
-                    className="text-[16px] font-normal text-[#1B1819] hover:text-[#128948] transition-colors"
+                    className="text-[16px] font-normal text-ink hover:text-brand transition-colors"
                   >
                     Frequently Asked Questions
+                  </Link>
+                  <Link
+                    href="/blog"
+                    className="text-[16px] font-normal text-ink hover:text-brand transition-colors"
+                  >
+                    Blog
                   </Link>
                 </div>
               </div>
@@ -145,7 +151,7 @@ export default function Footer() {
             {/* Contact Section */}
             <div className="flex flex-col items-start min-[700px]:items-end gap-4">
               <button
-                className="bg-[#1B1819] text-white px-4 py-2 rounded-lg flex items-center gap-[10px] hover:bg-[#2a2a2a] transition-colors"
+                className="bg-ink text-white px-4 py-2 rounded-lg flex items-center gap-[10px] hover:bg-[#2a2a2a] transition-colors"
                 onClick={startCall}
               >
                 <Phone className="w-4 h-4" />
@@ -154,10 +160,10 @@ export default function Footer() {
                 </span>
               </button>
               <div className="flex flex-col items-start min-[700px]:items-end">
-                <div className="text-[12px] font-semibold text-[#1B1819]">
+                <div className="text-[12px] font-semibold text-ink">
                   +91 9829021030
                 </div>
-                <div className="text-[12px] font-semibold text-[#1B1819]">
+                <div className="text-[12px] font-semibold text-ink">
                   kr@rangaco.com
                 </div>
               </div>
@@ -169,13 +175,13 @@ export default function Footer() {
             {/* Social Icons */}
             <div className="flex gap-2">
               <button
-                className="w-10 h-10 bg-[#1B1819] rounded-full flex items-center justify-center hover:bg-[#2a2a2a] transition-colors"
+                className="w-10 h-10 bg-ink rounded-full flex items-center justify-center hover:bg-[#2a2a2a] transition-colors"
                 onClick={openWhatsApp}
               >
                 <Send className="w-[18px] h-[14px] text-white" />
               </button>
               <button
-                className="w-10 h-10 bg-[#1B1819] rounded-full flex items-center justify-center hover:bg-[#2a2a2a] transition-colors"
+                className="w-10 h-10 bg-ink rounded-full flex items-center justify-center hover:bg-[#2a2a2a] transition-colors"
                 onClick={openWhatsApp}
               >
                 <MessageCircle className="w-4 h-4 text-white" />
@@ -183,7 +189,7 @@ export default function Footer() {
             </div>
 
             {/* Address */}
-            <div className="text-[12px] font-semibold text-[#1B1819] w-full min-[700px]:w-[197px]">
+            <div className="text-[12px] font-semibold text-ink w-full min-[700px]:w-[197px]">
               A7, Abhay Chambers, Jalori Gate, Jodhpur, Rajasthan
             </div>
           </div>

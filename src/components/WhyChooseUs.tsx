@@ -40,7 +40,7 @@ export default function WhyChooseUs() {
             >
               {/* Icon */}
               <div className="flex justify-center min-[700px]:justify-start">
-                <div className="w-[35px] h-[32px] text-[#128948]">
+                <div className="w-[35px] h-[32px] text-brand">
                   <feature.icon className="w-full h-full" />
                 </div>
               </div>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import {
   DropdownMenu,
@@ -58,19 +59,22 @@ export default function Navbar() {
         <div className="hidden min-[700px]:flex items-center gap-6">
           <button
             onClick={() => scrollToSection("services")}
-            className="text-[16px] font-bold text-[#101010] tracking-[-0.32px] leading-8 font-satoshi hover:text-[#128948] transition-colors"
+            className="text-[16px] font-bold text-ink-strong tracking-[-0.32px] leading-8 font-satoshi hover:text-brand transition-colors"
           >
             Services
           </button>
           <button
             onClick={() => scrollToSection("about")}
-            className="text-[16px] font-bold text-[#101010] tracking-[-0.32px] leading-8 font-satoshi hover:text-[#128948] transition-colors"
+            className="text-[16px] font-bold text-ink-strong tracking-[-0.32px] leading-8 font-satoshi hover:text-brand transition-colors"
           >
             About
           </button>
+          <Link href="/blog" className="text-[16px] font-bold text-ink-strong tracking-[-0.32px] leading-8 font-satoshi hover:text-brand transition-colors">
+            Blog
+          </Link>
           <button
             onClick={() => scrollToSection("faq")}
-            className="text-[16px] font-bold text-[#101010] tracking-[-0.32px] leading-8 font-satoshi hover:text-[#128948] transition-colors"
+            className="text-[16px] font-bold text-ink-strong tracking-[-0.32px] leading-8 font-satoshi hover:text-brand transition-colors"
           >
             FAQ
           </button>
@@ -109,6 +113,11 @@ export default function Navbar() {
                 className="cursor-pointer"
               >
                 About
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild className="cursor-pointer">
+                <Link href="/blog" onClick={() => setIsOpen(false)}>
+                  Blog
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => {

@@ -69,6 +69,7 @@ export default function FAQ() {
 
   return (
     <section
+      id="faq"
       className="bg-white py-6 min-[700px]:py-20"
       aria-labelledby="faq-heading"
     >

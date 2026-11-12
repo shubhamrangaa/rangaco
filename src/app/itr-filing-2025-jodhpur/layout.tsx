@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ITR Filing Jodhpur 2025 | Ranga & Company",
     description: "Beat the 15 Sep 2025 ITR deadline with expert CAs. Book your slot now.",
-    images: ["/twitter-image.jpg"],
+    images: ["/og-image.jpg"],
   },
   robots: {
     index: true,

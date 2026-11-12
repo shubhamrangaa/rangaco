@@ -33,7 +33,7 @@ export default function Header() {
               About
             </Link>
             <Link
-              href="/faq"
+              href="/#faq"
               className="text-gray-700 hover:text-gray-900 transition-colors font-satoshi"
             >
               FAQ

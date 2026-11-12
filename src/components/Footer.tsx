@@ -8,6 +8,7 @@ import {
   ArrowBigRight,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
   const startCall = () => {
@@ -131,45 +132,12 @@ export default function Footer() {
                   >
                     Testimonials
                   </a>
-                  <a
-                    href="/faq"
+                  <Link
+                    href="/#faq"
                     className="text-[16px] font-normal text-[#1B1819] hover:text-[#128948] transition-colors"
                   >
                     Frequently Asked Questions
-                  </a>
-                  <a
-                    href="/careers"
-                    className="text-[16px] font-normal text-[#1B1819] hover:text-[#128948] transition-colors"
-                  >
-                    Careers
-                  </a>
-                </div>
-              </div>
-
-              {/* Resources */}
-              <div className="flex flex-col gap-3 min-[700px]:gap-6 w-full">
-                <div className="text-[10px] font-medium text-[#1B1819] opacity-60 tracking-[0.4px] uppercase">
-                  resources
-                </div>
-                <div className="flex flex-col gap-1">
-                  <a
-                    href="/resources/"
-                    className="text-[16px] font-normal text-[#1B1819] hover:text-[#128948] transition-colors"
-                  >
-                    Blog
-                  </a>
-                  <a
-                    href="/resources/compliance-calendar"
-                    className="text-[16px] font-normal text-[#1B1819] hover:text-[#128948] transition-colors"
-                  >
-                    Compliance Calendar
-                  </a>
-                  <a
-                    href="/resources/gst-itr-checklist"
-                    className="text-[16px] font-normal text-[#1B1819] hover:text-[#128948] transition-colors"
-                  >
-                    GST & ITR Checklists
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -249,14 +217,8 @@ export default function Footer() {
       {/* Copyright - Directly on Gradient Background */}
       <div className="relative z-10 flex flex-col min-[700px]:flex-row justify-between items-start min-[700px]:items-center py-6 gap-4 min-[700px]:gap-0">
         <div className="text-[10px] font-normal text-white">
-          © 2025 — Copyright Ranga & Company, All rights reserved.
+          © {new Date().getFullYear()} — Copyright Ranga & Company, All rights reserved.
         </div>
-        <a
-          href="/privacy-policy"
-          className="text-[10px] font-normal text-white hover:text-white/80 transition-colors"
-        >
-          Privacy
-        </a>
       </div>
     </footer>
   );

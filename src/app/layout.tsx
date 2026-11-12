@@ -114,7 +114,7 @@ export const metadata: Metadata = {
       "Tax Consultant in Jodhpur - Income Tax & GST Filing | Ranga & Company",
     description:
       "35+ years helping Rajasthan businesses stay compliant. Expert tax consultants in Jodhpur for Income Tax & GST filing.",
-    images: ["/twitter-image.jpg"],
+    images: ["/og-image.jpg"],
   },
   robots: {
     index: true,

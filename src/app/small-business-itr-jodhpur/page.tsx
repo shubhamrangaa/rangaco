@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     type: "article",
     images: [
       {
-        url: "/og/small-business-itr-jodhpur.jpg",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Small-Business ITR Filing in Jodhpur",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
       "Small-Business ITR Filing in Jodhpur | Presumptive 44AD/44ADA (AY 2025–26)",
     description:
       "A beginner-friendly, CA-approved guide to file your business ITR in Jodhpur. Presumptive 44AD/44ADA, audit triggers, ITR-3 vs ITR-4, deadlines & more.",
-    images: ["/og/small-business-itr-jodhpur.jpg"],
+    images: ["/og-image.jpg"],
   },
   robots: {
     index: true,

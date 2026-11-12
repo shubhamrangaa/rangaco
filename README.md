@@ -1,159 +1,61 @@
-# Ranga & Company - Tax Consultancy Website
+# Ranga & Company website
 
-A modern, SEO-optimized website for Ranga & Company, a tax consultancy firm based in Jodhpur, Rajasthan.
+Marketing site for Ranga & Company, tax consultants in Jodhpur. Live at <https://rangaco.com>.
 
-## Features
+Next.js 16 (App Router, fully static) · React 19 · Tailwind CSS 4 · TypeScript · deployed on Vercel from `main`.
 
-- **SEO Optimized**: Complete meta tags, structured data, sitemap, and robots.txt
-- **Mobile Responsive**: Fully responsive design that works on all devices
-- **Modern UI**: Clean, professional design with smooth animations
-- **Fast Performance**: Built with Next.js 14 and optimized for speed
-- **Accessibility**: WCAG compliant with proper focus states and semantic HTML
+## Commands
 
-## Tech Stack
-
-- **Framework**: Next.js 14 with App Router
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Icons**: Lucide React
-- **Deployment**: Vercel (recommended)
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+ 
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd rangaco
+npm run dev        # local dev server on http://localhost:3000
+npm run check      # lint + typecheck + production build (run before pushing)
+npm run audit:seo  # crawl the built site: broken links, orphans, headings, metadata
 ```
 
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Run the development server:
-```bash
-npm run dev
-```
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## Project Structure
+## How the code is organised
 
 ```
 src/
-├── app/
-│   ├── layout.tsx          # Root layout with SEO metadata
-│   ├── page.tsx            # Homepage
-│   ├── globals.css         # Global styles
-│   ├── sitemap.ts          # SEO sitemap
-│   └── robots.ts           # SEO robots.txt
-├── components/
-│   ├── Header.tsx          # Navigation header
-│   ├── Hero.tsx            # Hero section
-│   ├── Services.tsx        # Services grid
-│   ├── WhyChooseUs.tsx     # Features section
-│   ├── IncomeTaxSection.tsx # Income tax services
-│   ├── GSTSection.tsx      # GST services
-│   ├── AuditSection.tsx    # Audit services
-│   ├── ComplianceSection.tsx # Compliance services
-│   ├── Testimonial.tsx     # Client testimonial
-│   ├── FAQ.tsx             # FAQ section
-│   ├── Footer.tsx          # Footer with links
-│   └── StructuredData.tsx  # JSON-LD structured data
+  content/     All copy and business facts as typed data. Start here for most edits.
+    site.ts        name, phone, WhatsApp, address, founding year, nav
+    services.ts    the 10 services: slug, H1, meta title/description, price, related links
+    blog.ts        authors and posts registry (drives /blog, author pages, sitemap)
+    itr-years.ts   one entry per assessment year for the yearly ITR guides
+    faqs.ts        homepage FAQs
+    testimonials.ts  real, attributable client quotes only
+    calendar.ts    statutory due dates for the homepage infographics
+  lib/seo.ts   pageMetadata() + JSON-LD builders. Every page's metadata goes through it.
+  components/
+    layout/    SiteHeader, MobileNav, SiteFooter, Breadcrumbs, Logo
+    content/   PageHero, FaqList, RelatedLinks (interlinking block), CtaBand
+    home/      homepage sections and infographics
+    services/  ServicePage layout, ServiceIcon
+    blog/      ArticleLayout, AuthorBadge
+    itr/       ItrYearGuide template, Countdown
+    ui/        Cta (link-based buttons), JsonLd
+  app/         routes only; pages stay thin and read from src/content
 ```
 
-## SEO Features
+## Common tasks
 
-- **Meta Tags**: Complete Open Graph, Twitter Cards, and standard meta tags
-- **Structured Data**: JSON-LD markup for better search engine understanding
-- **Sitemap**: Automatic XML sitemap generation
-- **Robots.txt**: Proper crawling instructions
-- **Canonical URLs**: Prevents duplicate content issues
-- **Schema Markup**: Rich snippets for local business
+**Change a phone number, address or price** – edit `src/content/site.ts` or `src/content/services.ts`. Header, footer, structured data and pages update together.
 
-## Customization
+**Add a blog post**
+1. Add an entry to `POSTS` in `src/content/blog.ts` (newest first) with the services it should link to.
+2. Create `src/app/blog/<slug>/page.tsx` using `ArticleLayout` and `postMetadata(post)` (copy an existing post).
+3. Optional header image: 1600×840 JPG in `public/blog/`.
 
-### Colors
-The website uses a consistent color scheme:
-- Primary Green: `#22c55e` (green-500)
-- Primary Blue: `#2563eb` (blue-600)
-- Text Gray: `#374151` (gray-700)
-- Background: `#ffffff` (white)
+The sitemap, blog index, author page and related-links blocks pick it up automatically.
 
-### Content
-Update the content in each component file to match your business:
-- Contact information in `Footer.tsx`
-- Services in `Services.tsx`
-- Company details in `layout.tsx`
+**Add next year's ITR guide** – copy the first entry in `src/content/itr-years.ts`, update dates/FAQs/sources, and create `src/app/itr-filing-<year>-jodhpur/page.tsx` (three lines; copy the previous year's). Older years automatically show an "archived" notice linking to the newest.
 
-### SEO
-Update SEO settings in `layout.tsx`:
-- Replace `your-google-verification-code` with actual Google verification
-- Update `metadataBase` URL to your domain
-- Modify meta descriptions and keywords
+**Add a testimonial** – only with the client's permission; append to `src/content/testimonials.ts`.
 
-## Deployment
+## Conventions
 
-### Vercel (Recommended)
-
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Deploy automatically
-
-### Other Platforms
-
-The site can be deployed to any platform that supports Next.js:
-- Netlify
-- Railway
-- DigitalOcean App Platform
-- AWS Amplify
-
-## Performance Optimization
-
-- **Image Optimization**: Next.js automatic image optimization
-- **Code Splitting**: Automatic code splitting by route
-- **Minification**: Automatic CSS and JS minification
-- **Caching**: Optimized caching headers
-
-## Accessibility
-
-- **Semantic HTML**: Proper heading hierarchy and landmarks
-- **Keyboard Navigation**: Full keyboard accessibility
-- **Focus States**: Visible focus indicators
-- **Alt Text**: Proper image descriptions
-- **ARIA Labels**: Screen reader support
-
-## Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License.
-
-## Support
-
-For support, email kr@rangaco.com or call +91 9829021030.
-
----
-
-Built with ❤️ for Ranga & Company
+- Pages are static. Keep client components (`"use client"`) to small islands (`MobileNav`, `Countdown`).
+- Calls to action are real links (`tel:`, `wa.me`, internal pages) via `Cta`, so they work without JavaScript.
+- Every inner page renders `Breadcrumbs` (visible trail + `BreadcrumbList` schema). One `<h1>` per page.
+- Motion uses CSS only: spring curves in `globals.css` (`ease-spring*` utilities), scroll reveals via `.reveal`. Everything respects `prefers-reduced-motion`.
+- Facts about the firm must be accurate: Ranga & Company is a tax consultancy; audits and certificates are signed by a partner CA firm. Don't describe the firm as a CA firm.
+- Tax content quoting dates or thresholds should cite the year it applies to and be reviewed by the partner CA.

@@ -1,32 +1,12 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import ArticleLayout, { type Faq, type TocItem } from "@/components/blog/ArticleLayout";
-import { getPost } from "@/lib/blog/posts";
+import ArticleLayout, { postMetadata, type TocItem } from "@/components/blog/ArticleLayout";
+import { getPost } from "@/content/blog";
+import type { Faq } from "@/content/faqs";
 
 const post = getPost("/blog/top-ca-firms-in-jodhpur");
 const RATINGS_AS_OF = "13 November 2026";
 
-export const metadata: Metadata = {
-  title: "8 Best CA Firms & Tax Consultants in Jodhpur (2026) | Ranga & Company",
-  description: post.description,
-  alternates: { canonical: post.href },
-  openGraph: {
-    type: "article",
-    title: post.title,
-    description: post.description,
-    url: post.href,
-    publishedTime: post.published,
-    modifiedTime: post.updated ?? post.published,
-    authors: [post.author.url],
-    images: [{ url: post.image!, width: 1600, height: 840, alt: post.title }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: post.title,
-    description: post.description,
-    images: [post.image!],
-  },
-};
+export const metadata = postMetadata(post);
 
 // "Tax filing" -> "tax filing", but keep acronyms like "GST" / "ITRs" intact.
 const lowerFirst = (s: string) => (/^[A-Z][a-z]/.test(s) ? s[0].toLowerCase() + s.slice(1) : s);
@@ -55,7 +35,7 @@ const FIRMS: Firm[] = [
     area: "Abhay Chambers, Jalori Gate",
     website: "https://rangaco.com",
     summary:
-      "Ranga & Company is a Jodhpur tax consultancy that has served individuals and businesses since 1988. It handles income-tax returns, GST registration and returns, TDS/TCS, accounting and payroll, and replies to income-tax notices. It works with a partner CA firm for tax audits, statutory audits and certificates.",
+      "Ranga & Company is a Jodhpur tax consultancy that has served individuals and businesses since 1990. It handles income-tax returns, GST registration and returns, TDS/TCS, accounting and payroll, and replies to income-tax notices. It works with a partner CA firm for tax audits, statutory audits and certificates.",
     mentions:
       "With a single Google review there is no review pattern yet; the published fee list on the website is the clearest guide to scope and price.",
     watchOut:
@@ -278,7 +258,7 @@ export default function Page() {
           <tbody>
             {FIRMS.map((f, i) => (
               <tr key={f.id}>
-                <th scope="row" className="!bg-white">
+                <th scope="row" className="!bg-white font-medium">
                   <a href={`#${f.id}`} className="!no-underline">
                     {i + 1}. {f.name}
                   </a>
@@ -374,7 +354,7 @@ export default function Page() {
       </p>
       <h3>4. Test responsiveness before deadline season</h3>
       <p>
-        July (ITR) and the 20th of each month (GSTR-3B) are the crunch points. Send a query in a quiet month and see how
+        July and August (ITR) and the 20th of each month (GSTR-3B) are the crunch points. Send a query in a quiet month and see how
         quickly and clearly you get an answer.
       </p>
       <h3>5. Read the reviews, not just the stars</h3>
@@ -385,7 +365,7 @@ export default function Page() {
 
       <h2 id="why-ranga">Why Jodhpur clients choose Ranga & Company</h2>
       <p>
-        We have handled tax and compliance for Jodhpur families and businesses since 1988, from our office at Abhay
+        We have handled tax and compliance for Jodhpur families and businesses since 1990, from our office at Abhay
         Chambers, Jalori Gate. Our fees are published up front:
       </p>
       <ul>

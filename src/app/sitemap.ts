@@ -1,110 +1,25 @@
-import { MetadataRoute } from "next";
-import { POSTS } from "@/lib/blog/posts";
+import type { MetadataRoute } from "next";
+import { SITE } from "@/content/site";
+import { SERVICES, serviceHref } from "@/content/services";
+import { AUTHORS, POSTS, authorHref } from "@/content/blog";
+import { ITR_YEARS, itrHref } from "@/content/itr-years";
 
+/** Generated from the content layer, so new services, posts, authors and ITR years appear automatically. */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://rangaco.com";
-
-  const blog: MetadataRoute.Sitemap = [
-    { url: `${baseUrl}/blog`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
-    ...POSTS.filter((p) => p.href.startsWith("/blog/")).map((p) => ({
-      url: `${baseUrl}${p.href}`,
-      lastModified: new Date(p.updated ?? p.published),
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
-    })),
-  ];
+  const url = (path: string) => `${SITE.url}${path === "/" ? "" : path}`;
+  const now = new Date();
+  const latestPost = POSTS.map((p) => p.updated ?? p.published).sort().at(-1)!;
 
   return [
-    ...blog,
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/small-business-itr-jodhpur`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/itr-filing-2025-jodhpur`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/services`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/services/itr-filing-jodhpur`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/services/gst-registration-jodhpur`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/services/gst-return-filing-jodhpur`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/services/tds-tcs-compliance-jodhpur`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/services/statutory-audit-jodhpur`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/services/accounting-payroll-jodhpur`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/services/virtual-cfo-jodhpur`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/services/income-tax-advisory-jodhpur`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/services/gst-refund-assistance-jodhpur`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/services/income-tax-notice-reply-jodhpur`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
+    { url: url("/"), lastModified: now, changeFrequency: "weekly", priority: 1 },
+    { url: url("/services"), lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    ...SERVICES.map((s) => ({ url: url(serviceHref(s.slug)), lastModified: now, changeFrequency: "monthly" as const, priority: 0.9 })),
+    ...ITR_YEARS.map((y, i) => ({ url: url(itrHref(y.year)), lastModified: new Date(y.published), changeFrequency: (i === 0 ? "weekly" : "yearly") as "weekly" | "yearly", priority: i === 0 ? 0.9 : 0.5 })),
+    { url: url("/blog"), lastModified: new Date(latestPost), changeFrequency: "weekly", priority: 0.8 },
+    ...POSTS.map((p) => ({ url: url(p.href), lastModified: new Date(p.updated ?? p.published), changeFrequency: "monthly" as const, priority: 0.8 })),
+    ...Object.values(AUTHORS)
+      .filter((a) => a.kind === "Person")
+      .map((a) => ({ url: url(authorHref(a)), lastModified: new Date(latestPost), changeFrequency: "monthly" as const, priority: 0.5 })),
+    { url: url("/about"), lastModified: now, changeFrequency: "yearly", priority: 0.6 },
   ];
 }

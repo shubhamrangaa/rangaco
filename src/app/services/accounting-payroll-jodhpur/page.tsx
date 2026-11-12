@@ -1,43 +1,23 @@
-import BlogTemplate from "@/components/BlogTemplate";
+import Link from "next/link";
+import ServicePage, { serviceMetadata } from "@/components/services/ServicePage";
+import { getService } from "@/content/services";
 
-const accountingPayrollPost = {
-  title: "Outsourced Accounting & Payroll Services in Jodhpur",
-  content: `
-    <h2>Core Bookkeeping Tasks We Handle</h2>
-    <ul>
+const service = getService("accounting-payroll-jodhpur");
+export const metadata = serviceMetadata(service);
+
+export default function Page() {
+  return (
+    <ServicePage service={service}>
+      <h2>Core Bookkeeping Tasks We Handle</h2>
+      <ul>
       <li>Sales, purchase and bank entries in Tally/Zoho</li>
       <li>Monthly GST and TDS reconciliation</li>
-      <li>Year-end financial statements</li>
-    </ul>
-    
-    <h2>Payroll Made Simple</h2>
-    <p>Employees receive payslips on time; PF, ESI and PT returns filed before due dates.</p>
-    
-    <h2>Pricing & Software Options</h2>
-    <p>Starter plan: <strong>₹5,000/month</strong> for up to 200 vouchers. Choose Tally, Zoho Books or QuickBooks.</p>
-  `,
-  relatedPosts: [
-    {
-      title: "Statutory & Internal Audit",
-      description:
-        "Professional audit services to ensure compliance and financial transparency.",
-      href: "/services/statutory-audit-jodhpur",
-    },
-    {
-      title: "Virtual CFO Services",
-      description:
-        "Strategic financial guidance and CFO-level support for small and medium enterprises.",
-      href: "/services/virtual-cfo-jodhpur",
-    },
-    {
-      title: "GST Return Filing",
-      description:
-        "Professional GST return filing services to keep your business compliant and avoid penalties.",
-      href: "/services/gst-return-filing-jodhpur",
-    },
-  ],
-};
-
-export default function AccountingPayrollPage() {
-  return <BlogTemplate post={accountingPayrollPost} />;
+      <li>Year-end financial statements, with monthly MIS available through our <Link href="/services/virtual-cfo-jodhpur">virtual CFO service</Link></li>
+      </ul>
+      <h2>Payroll Made Simple</h2>
+      <p>Employees receive payslips on time; PF, ESI and PT returns filed before due dates.</p>
+      <h2>Pricing & Software Options</h2>
+      <p>Starter plan: <strong>₹5,000/month</strong> for up to 200 vouchers. Choose Tally, Zoho Books or QuickBooks.</p>
+    </ServicePage>
+  );
 }

@@ -1,158 +1,141 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@custom-variant dark (&:is(.dark *));
+/* ---------- Design tokens ---------- */
+@theme {
+  --font-sans: var(--font-satoshi), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-dm-serif), ui-serif, Georgia, serif;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 255, 255, 255;
-  --background-end-rgb: 255, 255, 255;
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-  --font-dm-serif: "DM Serif Display", serif;
-  --font-satoshi: "Satoshi", sans-serif;
+  --color-brand: #128948;
+  --color-brand-dark: #0f6b3a;
+  --color-brand-soft: #e7f3ec;
+  --color-ink: #1b1819;
+  --color-ink-strong: #101010;
+  --color-ink-body: #4b5563;
+  --color-ink-muted: #6b7280;
+  --color-paper: #f9fafb;
+  --color-line: #e5e7eb;
+
+  --text-display: clamp(2.25rem, 1.4rem + 3.2vw, 4rem);
+  --text-display--line-height: 1.08;
+  --text-display--letter-spacing: -0.03em;
+  --text-title: clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem);
+  --text-title--line-height: 1.2;
+  --text-title--letter-spacing: -0.02em;
+  --text-lede: 1.25rem;
+  --text-lede--line-height: 1.75rem;
+
+  /* Damped springs (SwiftUI response/dampingFraction) baked into linear() curves. */
+  --ease-spring: linear(0, 0.021, 0.076, 0.152, 0.239, 0.331, 0.423, 0.511, 0.593, 0.667, 0.733, 0.79, 0.838, 0.879, 0.912, 0.94, 0.961, 0.978, 0.991, 1, 1.007, 1.011, 1.014, 1.015, 1.015, 1.015, 1.014, 1.013, 1.011, 1.01, 1.009, 1.007, 1.006, 1.005, 1.004, 1.003, 1.002, 1.002, 1.001, 1);
+  --ease-spring-snappy: linear(0, 0.021, 0.072, 0.143, 0.224, 0.309, 0.393, 0.474, 0.549, 0.617, 0.678, 0.731, 0.778, 0.819, 0.853, 0.882, 0.906, 0.926, 0.942, 0.956, 0.966, 0.975, 0.982, 0.987, 0.991, 0.994, 0.997, 0.998, 1);
+  --ease-spring-bouncy: linear(0, 0.032, 0.112, 0.221, 0.345, 0.472, 0.593, 0.703, 0.799, 0.878, 0.942, 0.99, 1.025, 1.048, 1.062, 1.067, 1.068, 1.064, 1.057, 1.049, 1.04, 1.032, 1.024, 1.017, 1.011, 1.006, 1.002, 0.999, 0.997, 0.996, 0.996, 0.997, 0.998, 0.999, 1);
+  --duration-spring: 680ms;
+  --duration-snappy: 470ms;
+  --duration-bouncy: 910ms;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+/* ---------- Base ---------- */
+@layer base {
+  /* Tailwind v3 defaults this site was designed with. */
+  *, ::before, ::after { border-color: var(--color-line); }
+  button:not(:disabled), [role="button"]:not(:disabled), summary { cursor: pointer; }
+
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    /* overflow on body only: it propagates to the viewport. On html too, body becomes a scroller and breaks position: sticky. */
+    overflow-x: hidden;
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+  }
+  :focus-visible { outline: 2px solid var(--color-brand); outline-offset: 2px; border-radius: 4px; }
+  ::selection { background: var(--color-brand-soft); color: var(--color-ink); }
 }
 
-body {
-  /* Keep overflow on body only (it propagates to the viewport). Also setting it on html makes body a scroll container and breaks position: sticky. */
-  max-width: 100vw;
-  overflow-x: hidden;
-  font-family: var(--font-satoshi), sans-serif;
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+/* ---------- Motion ---------- */
+@utility ease-spring { transition-timing-function: var(--ease-spring); transition-duration: var(--duration-spring); }
+@utility ease-spring-snappy { transition-timing-function: var(--ease-spring-snappy); transition-duration: var(--duration-snappy); }
+@utility ease-spring-bouncy { transition-timing-function: var(--ease-spring-bouncy); transition-duration: var(--duration-bouncy); }
+
+/* Scroll-linked reveal: no JS. Browsers without scroll timelines just show content. */
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(14px) scale(0.985); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes draw { from { stroke-dashoffset: var(--len, 400); } to { stroke-dashoffset: 0; } }
+@keyframes pulse-dot { 0%, 100% { opacity: 0.35; transform: scale(1); } 50% { opacity: 1; transform: scale(1.6); } }
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 45%;
+    }
+    .draw {
+      stroke-dasharray: var(--len, 400);
+      animation: draw linear both;
+      animation-timeline: view();
+      animation-range: entry 20% cover 45%;
+    }
+  }
+  .pulse-dot { animation: pulse-dot 2.4s var(--ease-spring) infinite; }
+
+  details::details-content {
+    transition: height var(--duration-snappy) var(--ease-spring-snappy), content-visibility var(--duration-snappy) allow-discrete;
+    height: 0;
+    overflow: clip;
+  }
+  details[open]::details-content { height: auto; }
+}
+:root { interpolate-size: allow-keywords; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* ---------- Surfaces ---------- */
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--color-ink) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--color-ink) 6%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at 50% 0%, #000 30%, transparent 75%);
 }
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+@utility card {
+  border: 1px solid var(--color-line);
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 1px 0 rgb(16 16 16 / 0.02), 0 1px 2px rgb(16 16 16 / 0.04);
+}
+@utility card-hover {
+  transition-property: transform, box-shadow, border-color;
+  transition-timing-function: var(--ease-spring);
+  transition-duration: var(--duration-spring);
+  &:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in oklab, var(--color-brand) 35%, var(--color-line));
+    box-shadow: 0 1px 0 rgb(16 16 16 / 0.02), 0 12px 32px -12px rgb(18 137 72 / 0.25);
   }
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
-}
-
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Font family */
-.font-satoshi {
-  font-family: "Satoshi", sans-serif;
-}
-
-/* Backdrop filter support */
-@supports (backdrop-filter: blur(20px)) {
-  .backdrop-blur-custom {
-    backdrop-filter: blur(20px) brightness(100%);
-    -webkit-backdrop-filter: blur(20px) brightness(100%);
-  }
-}
-
-/* Focus styles for accessibility */
-button:focus-visible,
-a:focus-visible,
-input:focus-visible,
-summary:focus-visible {
-  outline: 2px solid #128948;
-  outline-offset: 2px;
-}
-
-/* Editorial article typography (blog) */
+/* ---------- Long-form content (blog, services, guides) ---------- */
 @layer components {
-  .article {
-    @apply text-[18px] leading-[1.75] text-ink-body;
-  }
-  .article > * + * {
-    @apply mt-5;
-  }
-  .article h2 {
-    @apply mt-16 mb-2 scroll-mt-28 text-title font-medium text-ink;
-  }
-  .article h3 {
-    @apply mt-10 mb-1 scroll-mt-28 text-[22px] leading-snug font-medium tracking-[-0.01em] text-ink;
-  }
-  .article strong {
-    @apply font-semibold text-ink;
-  }
-  .article a {
-    @apply text-brand underline decoration-brand/30 underline-offset-4 hover:decoration-brand;
-  }
-  .article ul {
-    @apply list-disc space-y-2 pl-6 marker:text-brand;
-  }
-  .article ol {
-    @apply list-decimal space-y-2 pl-6 marker:font-medium marker:text-ink;
-  }
-  .article table {
-    @apply w-full border-collapse text-left text-[15px] leading-6;
-  }
-  .article th {
-    @apply border-b border-line bg-paper px-4 py-3 font-medium text-ink;
-  }
-  .article td {
-    @apply border-b border-line px-4 py-3 align-top;
-  }
+  .prose-rc { font-size: 18px; line-height: 1.75; color: var(--color-ink-body); }
+  .prose-rc > * + * { margin-top: 1.25rem; }
+  .prose-rc h2 { margin-top: 4rem; margin-bottom: 0.5rem; scroll-margin-top: 7rem; font-size: var(--text-title); line-height: 1.2; letter-spacing: -0.02em; font-weight: 500; color: var(--color-ink); }
+  .prose-rc h3 { margin-top: 2.5rem; margin-bottom: 0.25rem; scroll-margin-top: 7rem; font-size: 22px; line-height: 1.35; letter-spacing: -0.01em; font-weight: 500; color: var(--color-ink); }
+  .prose-rc strong { font-weight: 600; color: var(--color-ink); }
+  .prose-rc a { color: var(--color-brand); text-decoration: underline; text-decoration-color: color-mix(in oklab, var(--color-brand) 30%, transparent); text-underline-offset: 4px; }
+  .prose-rc a:hover { text-decoration-color: var(--color-brand); }
+  .prose-rc ul { list-style: disc; padding-left: 1.5rem; }
+  .prose-rc ol { list-style: decimal; padding-left: 1.5rem; }
+  .prose-rc li + li { margin-top: 0.5rem; }
+  .prose-rc ul > li::marker { color: var(--color-brand); }
+  .prose-rc ol > li::marker { font-weight: 500; color: var(--color-ink); }
+  .prose-rc table { width: 100%; border-collapse: collapse; text-align: left; font-size: 15px; line-height: 1.5rem; }
+  .prose-rc th { border-bottom: 1px solid var(--color-line); background: var(--color-paper); padding: 0.75rem 1rem; font-weight: 500; color: var(--color-ink); }
+  .prose-rc td { border-bottom: 1px solid var(--color-line); padding: 0.75rem 1rem; vertical-align: top; }
+  .prose-rc hr { border-color: var(--color-line); }
+  .prose-rc blockquote { border-left: 3px solid var(--color-brand); padding-left: 1rem; color: var(--color-ink); }
 }

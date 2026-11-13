@@ -13,8 +13,8 @@ export default function LatestPosts() {
           All articles <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform ease-spring group-hover:translate-x-1" />
         </Link>
       </div>
-      <ul className="mt-12 grid gap-4 min-[760px]:grid-cols-2">
-        {POSTS.slice(0, 2).map((p) => (
+      <ul className="mt-12 grid gap-4 min-[760px]:grid-cols-3">
+        {[...POSTS.filter((p) => p.featured), ...POSTS.filter((p) => !p.featured)].slice(0, 3).map((p) => (
           <li key={p.href} className="reveal">
             <Link href={p.href} className="card card-hover group flex h-full flex-col overflow-hidden">
               {p.image && <Image src={p.image} alt="" width={800} height={420} className="w-full border-b border-line" />}

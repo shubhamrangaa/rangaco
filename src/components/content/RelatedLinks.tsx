@@ -15,7 +15,13 @@ type Props = {
 
 /** The interlinking block used at the bottom of articles and service pages. */
 export default function RelatedLinks({ services, currentHref, heading = "Keep reading", maxPosts = 3 }: Props) {
-  const posts: Post[] = POSTS.filter((p) => p.href !== currentHref).slice(0, maxPosts);
+  // Most topically related first (shared services), newest as the tie-break (POSTS is newest-first).
+  const overlap = (p: Post) => p.services.filter((s) => services.includes(s)).length;
+  const posts: Post[] = POSTS.filter((p) => p.href !== currentHref)
+    .map((p, i) => ({ p, i }))
+    .sort((a, b) => overlap(b.p) - overlap(a.p) || a.i - b.i)
+    .slice(0, maxPosts)
+    .map(({ p }) => p);
   return (
     <section aria-labelledby="related-heading" className="mt-24">
       <h2 id="related-heading" className="text-title font-medium text-ink">{heading}</h2>

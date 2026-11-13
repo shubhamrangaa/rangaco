@@ -98,6 +98,7 @@ export const personLd = (a: Author, path: string) => ({
   name: a.name,
   description: a.bio,
   url: absoluteUrl(path),
+  image: a.image ? absoluteUrl(a.image) : undefined,
   jobTitle: a.kind === "Person" ? a.role : undefined,
   worksFor: a.kind === "Person" ? { "@id": ORG_ID } : undefined,
   hasCredential: a.education?.map((e) => ({ "@type": "EducationalOccupationalCredential", credentialCategory: "degree", name: e })),

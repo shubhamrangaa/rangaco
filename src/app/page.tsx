@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Hero from "@/components/home/Hero";
 import ProofStrip from "@/components/home/ProofStrip";
+import TrustedBy from "@/components/home/TrustedBy";
 import ServicesGrid from "@/components/home/ServicesGrid";
 import HowItWorks from "@/components/home/HowItWorks";
 import YearCalendar from "@/components/home/YearCalendar";
@@ -28,6 +29,7 @@ export default function Home() {
     <main>
       <Hero />
       <ProofStrip />
+      <TrustedBy />
       <ServicesGrid />
       <HowItWorks />
       <YearCalendar />

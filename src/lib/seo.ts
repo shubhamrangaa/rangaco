@@ -104,9 +104,11 @@ export const personLd = (a: Author, path: string) => ({
   sameAs: a.links.map((l) => l.href),
 });
 
-export const articleLd = (post: Post, authorPath: string) => ({
+type ArticleLike = Pick<Post, "href" | "title" | "description" | "image" | "published" | "updated" | "author">;
+
+export const articleLd = (post: ArticleLike, authorPath: string, type: "BlogPosting" | "Article" = "BlogPosting") => ({
   "@context": "https://schema.org",
-  "@type": "BlogPosting",
+  "@type": type,
   "@id": absoluteUrl(`${post.href}#article`),
   headline: post.title,
   description: post.description,

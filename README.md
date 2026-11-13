@@ -43,7 +43,7 @@ src/
 **Add a blog post**
 1. Add an entry to `POSTS` in `src/content/blog.ts` (newest first) with the services it should link to.
 2. Create `src/app/blog/<slug>/page.tsx` using `ArticleLayout` and `postMetadata(post)` (copy an existing post).
-3. Optional header image: 1600×840 JPG in `public/blog/`.
+3. Thumbnail: add `design/thumbnails/<slug>.svg` (1600×840; copy an existing one for the card/pill style) and run `npm run thumbnails` to render `public/blog/<slug>.png`. Set `image` on the post. Rendering needs a Chromium binary (`CHROME_BIN`, or `npx playwright install chromium-headless-shell`).
 
 The sitemap, blog index, author page and related-links blocks pick it up automatically.
 

@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "check": "npm run lint && npm run typecheck && npm run build",
-    "audit:seo": "node scripts/seo-audit.mjs"
+    "audit:seo": "node scripts/seo-audit.mjs",
+    "thumbnails": "node scripts/render-thumbnails.mjs"
   },
   "dependencies": {
     "@next/third-parties": "16.4.3",

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowUpRight, GraduationCap } from "lucide-react";
@@ -44,9 +45,13 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
         <Breadcrumbs items={[{ name: "Blog", path: "/blog" }, { name: author.name, path }]} />
 
         <header className="card flex flex-col gap-6 p-8 min-[640px]:flex-row min-[640px]:items-center">
-          <span aria-hidden="true" className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-brand-soft text-2xl font-bold text-brand">
-            {author.name.split(" ").map((w) => w[0]).join("").slice(0, 2)}
-          </span>
+          {author.image ? (
+            <Image src={author.image} alt={author.name} width={112} height={112} priority className="h-28 w-28 shrink-0 rounded-full object-cover ring-4 ring-brand-soft" />
+          ) : (
+            <span aria-hidden="true" className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-brand-soft text-2xl font-bold text-brand">
+              {author.name.split(" ").map((w) => w[0]).join("").slice(0, 2)}
+            </span>
+          )}
           <div>
             <h1 className="text-title font-medium text-ink">{author.name}</h1>
             <p className="mt-1 text-ink-muted">{author.role}</p>

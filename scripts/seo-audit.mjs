@@ -56,20 +56,29 @@ for (const file of walk(ROOT)) {
     h1: all(/<h1\b[^>]*>([\s\S]*?)<\/h1>/g, body).map((m) => decode(m[1])),
     h2: all(/<h2\b[^>]*>([\s\S]*?)<\/h2>/g, main).map((m) => decode(m[1])),
     h3: all(/<h3\b[^>]*>([\s\S]*?)<\/h3>/g, main).map((m) => decode(m[1])),
-    jsonLd: all(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g, body).flatMap((m) => {
+    ld: all(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g, body).map((m) => {
       try {
-        const j = JSON.parse(m[1]);
-        return [j["@type"]].flat();
+        return JSON.parse(m[1]);
       } catch {
-        return ["INVALID"];
+        return { "@type": "INVALID" };
       }
     }),
+    headings: all(/<h([1-6])\b[^>]*>([\s\S]*?)<\/h\1>/g, body).map((m) => [Number(m[1]), decode(m[2])]),
+    meta: Object.fromEntries(all(/<meta (?:property|name)="((?:og|twitter):[a-z:]+|robots)" content="([^"]*)"/g, body).map((m) => [m[1], m[2]])),
+    lang: html.match(/<html[^>]*lang="([^"]+)"/)?.[1] ?? "",
+    ids: new Set(all(/\sid="([^"]+)"/g, body).map((m) => m[1])),
+    samePageAnchors: [...new Set(all(/<a\b[^>]*href="#([^"]+)"/g, body).map((m) => m[1]))],
+    emptyLinks: all(/<a\b([^>]*)>([\s\S]*?)<\/a>/g, body).filter((m) => !decode(m[2]) && !/aria-label=/.test(m[1])).map((m) => attr(m[0], "href")),
+    faqVisible: (main.match(/<details name="faq"/g) || []).length,
+    text: decode(main),
     hasBreadcrumbs: body.includes('aria-label="Breadcrumb"'),
     outlinks: internal(links),
     contentOutlinks: internal(contentLinks),
     externalLinks: [...new Set(links.filter((h) => /^https?:/.test(h)))],
   };
 }
+
+for (const p of Object.values(pages)) p.jsonLd = p.ld.flatMap((j) => [j["@type"]].flat());
 
 const routes = Object.keys(pages).filter((r) => !["/robots.txt", "/sitemap.xml"].includes(r));
 const exists = (p) => routes.includes(p) || ["/robots.txt", "/sitemap.xml"].includes(p) || existsSync(join("public", p));
@@ -95,6 +104,90 @@ for (const r of routes) {
   if (p.jsonLd.includes("INVALID")) add(r, "invalid-json-ld", "");
 }
 
+// ---- Structured data, headings, social tags, duplicates ----
+const abs = (r) => `${SITE}${r === "/" ? "" : r}`;
+const routeOfUrl = (u) => (u?.startsWith(SITE) ? u.slice(SITE.length) || "/" : null);
+for (const r of routes) {
+  const p = pages[r];
+  const canonical = abs(r);
+  const byType = (t) => p.ld.filter((j) => [j["@type"]].flat().includes(t));
+  for (const [t, n] of Object.entries(p.jsonLd.reduce((a, t) => ((a[t] = (a[t] || 0) + 1), a), {})))
+    if (n > 1) add(r, "schema-duplicate-type", `${t} x${n}`);
+
+  for (const b of byType("BreadcrumbList")) {
+    const items = b.itemListElement || [];
+    items.forEach((it, i) => {
+      if (it.position !== i + 1) add(r, "schema-breadcrumb", `position ${it.position} at index ${i}`);
+      if (!it.name || !it.item) add(r, "schema-breadcrumb", `item ${i + 1} missing name/item`);
+      const ir = routeOfUrl(it.item);
+      if (ir && !routes.includes(ir)) add(r, "schema-breadcrumb", `item points to missing page ${ir}`);
+    });
+    if (items.at(-1)?.item !== canonical) add(r, "schema-breadcrumb", `last item ${items.at(-1)?.item} != canonical`);
+    if (items[0]?.item !== SITE && items[0]?.item !== `${SITE}/`) add(r, "schema-breadcrumb", "first item is not the homepage");
+  }
+  for (const f of byType("FAQPage")) {
+    const qs = f.mainEntity || [];
+    if (!qs.length) add(r, "schema-faq", "no questions");
+    if (p.faqVisible && qs.length !== p.faqVisible) add(r, "schema-faq", `${qs.length} in schema vs ${p.faqVisible} visible`);
+    for (const q of qs) {
+      if (!q.name || !q.acceptedAnswer?.text) add(r, "schema-faq", "question without name/answer");
+      else if (!p.text.includes(q.name) || !p.text.includes(q.acceptedAnswer.text)) add(r, "schema-faq", `not visible on page: ${q.name.slice(0, 50)}`);
+    }
+  }
+  for (const d of byType("DefinedTerm")) {
+    if (!d.name || !d.description) add(r, "schema-term", "missing name/description");
+    if (d.url !== canonical) add(r, "schema-term", `url ${d.url} != canonical`);
+    if (!d.inDefinedTermSet) add(r, "schema-term", "missing inDefinedTermSet");
+    if (d.description && !p.text.includes(d.description)) add(r, "schema-term", "description not visible on page");
+  }
+  for (const set of byType("DefinedTermSet"))
+    for (const t of set.hasDefinedTerm || []) {
+      const tr = routeOfUrl(t.url);
+      if (!tr || !routes.includes(tr)) add(r, "schema-termset", `term url missing: ${t.url}`);
+    }
+  for (const a of byType("BlogPosting")) {
+    if (!a.headline || a.headline.length > 110) add(r, "schema-article", `headline ${a.headline?.length ?? 0} chars (max 110)`);
+    if (!a.datePublished || !a.author?.name || !a.image) add(r, "schema-article", "missing datePublished/author/image");
+    if (a.mainEntityOfPage !== canonical) add(r, "schema-article", "mainEntityOfPage != canonical");
+  }
+  for (const s of byType("Service")) if (s.url !== canonical || !s.provider) add(r, "schema-service", "url/provider");
+  if (!byType("AccountingService").length) add(r, "schema-org", "organization schema missing");
+
+  // Headings: one h1 first, no skipped levels, no empty or repeated h2s.
+  const levels = p.headings.map(([l]) => l);
+  if (levels[0] !== 1) add(r, "heading-order", `first heading is h${levels[0]}`);
+  levels.forEach((l, i) => i && l > levels[i - 1] + 1 && add(r, "heading-skip", `h${levels[i - 1]} -> h${l}: "${p.headings[i][1].slice(0, 40)}"`));
+  p.headings.filter(([, t]) => !t).forEach(([l]) => add(r, "heading-empty", `h${l}`));
+  const h2s = p.headings.filter(([l]) => l === 2).map(([, t]) => t);
+  h2s.filter((t, i) => h2s.indexOf(t) !== i).forEach((t) => add(r, "heading-duplicate", t));
+
+  // Social tags, indexing, language, anchors, empty links.
+  for (const k of ["og:title", "og:description", "og:url", "og:image", "twitter:card"]) if (!p.meta[k]) add(r, "social-tag", `missing ${k}`);
+  if (p.meta["og:url"] && p.meta["og:url"] !== canonical) add(r, "social-tag", `og:url ${p.meta["og:url"]} != canonical`);
+  if (/noindex/.test(p.meta.robots || "")) add(r, "noindex", p.meta.robots);
+  if (!p.lang) add(r, "html-lang", "missing");
+  p.samePageAnchors.filter((id) => !p.ids.has(id)).forEach((id) => add(r, "broken-anchor", `#${id}`));
+  p.emptyLinks.forEach((h) => add(r, "empty-link-text", h));
+}
+const dupes = (key) => {
+  const seen = {};
+  for (const r of routes) (seen[pages[r][key]] ??= []).push(r);
+  for (const [v, rs] of Object.entries(seen)) if (v && rs.length > 1) rs.forEach((r) => add(r, `duplicate-${key}`, `shared with ${rs.filter((x) => x !== r).join(", ")}`));
+};
+dupes("title");
+dupes("description");
+
+// The same FAQ question on two pages competes with itself in search and AI answers.
+const faqOwners = {};
+for (const r of routes)
+  for (const f of pages[r].ld.filter((j) => j["@type"] === "FAQPage"))
+    for (const q of f.mainEntity || []) (faqOwners[q.name.toLowerCase()] ??= []).push(r);
+for (const [q, rs] of Object.entries(faqOwners)) if (rs.length > 1) add(rs.join(" + "), "duplicate-faq", q);
+
+// Glossary H1s are written as the question people search.
+for (const r of routes.filter((x) => x.startsWith("/glossary/")))
+  if (!/^(What|How) .+\?$/.test(pages[r].h1[0] || "")) add(r, "glossary-h1", pages[r].h1[0]);
+
 // Inlinks from other pages (any link, incl. nav/footer) and from page content only.
 const inlinks = Object.fromEntries(routes.map((r) => [r, []]));
 const contentInlinks = Object.fromEntries(routes.map((r) => [r, []]));
@@ -116,7 +209,10 @@ for (const u of inSitemap) if (!routes.includes(u)) add(u, "sitemap-url-missing"
 const report = {
   generatedAt: new Date().toISOString(),
   pages: Object.fromEntries(
-    routes.sort().map((r) => [r, { ...pages[r], inlinks: inlinks[r].sort(), contentInlinks: contentInlinks[r].sort() }]),
+    routes.sort().map((r) => {
+      const rest = Object.fromEntries(Object.entries(pages[r]).filter(([k]) => !["ld", "ids", "text"].includes(k)));
+      return [r, { ...rest, inlinks: inlinks[r].sort(), contentInlinks: contentInlinks[r].sort() }];
+    }),
   ),
   issues,
 };
@@ -134,5 +230,5 @@ for (const [k, list] of Object.entries(byKind)) {
   console.log(`\n${k} (${list.length})`);
   for (const i of list) console.log(`  ${i.route}  ${i.detail}`);
 }
-const fatal = issues.filter((i) => ["broken-link", "h1-count", "missing-title", "missing-description", "invalid-json-ld", "orphan", "sitemap-url-missing"].includes(i.kind));
+const fatal = issues.filter((i) => ["broken-link", "broken-anchor", "h1-count", "missing-title", "missing-description", "invalid-json-ld", "orphan", "sitemap-url-missing", "noindex", "duplicate-title"].includes(i.kind) || i.kind.startsWith("schema-"));
 process.exit(fatal.length ? 1 : 0);

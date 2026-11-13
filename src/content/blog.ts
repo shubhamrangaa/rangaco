@@ -6,6 +6,8 @@ export type Author = {
   name: string;
   role: string;
   bio: string;
+  /** Square headshot in /public. */
+  image?: string;
   education?: string[];
   links: { label: string; href: string }[];
 };
@@ -16,6 +18,7 @@ export const AUTHORS = {
     kind: "Person",
     name: "Shubham Ranga",
     role: "Writer, Ranga & Company",
+    image: "/authors/shubham-ranga.webp",
     bio: "Shubham writes Ranga & Company's guides on income tax, GST and choosing the right tax professional in Jodhpur, turning the questions clients ask most into plain-English answers.",
     education: ["B.Tech, Computer Science"],
     links: [{ label: "LinkedIn", href: "https://www.linkedin.com/in/shubhamrangaa/" }],

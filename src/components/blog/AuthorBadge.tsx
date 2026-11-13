@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { authorHref, type Author } from "@/content/blog";
 
@@ -12,9 +13,13 @@ const initials = (name: string) =>
 export default function AuthorBadge({ author }: { author: Author }) {
   return (
     <div className="flex items-center gap-3">
-      <span aria-hidden="true" className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-soft text-sm font-bold text-brand">
-        {initials(author.name)}
-      </span>
+      {author.image ? (
+        <Image src={author.image} alt="" width={40} height={40} className="h-10 w-10 rounded-full object-cover" />
+      ) : (
+        <span aria-hidden="true" className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-soft text-sm font-bold text-brand">
+          {initials(author.name)}
+        </span>
+      )}
       <div className="leading-tight">
         <Link href={authorHref(author)} rel="author" className="font-medium text-ink hover:text-brand">
           {author.name}

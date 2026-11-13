@@ -39,6 +39,7 @@ export default function SiteFooter() {
           <li><Link href="/services" className={linkCls}>All services</Link></li>
           <li><Link href="/blog" className={linkCls}>Blog</Link></li>
           <li><Link href="/case-studies" className={linkCls}>Case studies</Link></li>
+          <li><Link href="/glossary" className={linkCls}>Tax glossary</Link></li>
           {ITR_YEARS.map((y) => (
             <li key={y.year}><Link href={itrHref(y.year)} className={linkCls}>ITR filing {y.year} guide</Link></li>
           ))}

@@ -98,6 +98,7 @@ export const personLd = (a: Author, path: string) => ({
   name: a.name,
   description: a.bio,
   url: absoluteUrl(path),
+  image: a.image ? absoluteUrl(a.image) : undefined,
   jobTitle: a.kind === "Person" ? a.role : undefined,
   worksFor: a.kind === "Person" ? { "@id": ORG_ID } : undefined,
   hasCredential: a.education?.map((e) => ({ "@type": "EducationalOccupationalCredential", credentialCategory: "degree", name: e })),
@@ -126,7 +127,29 @@ export const articleLd = (post: ArticleLike, authorPath: string, type: "BlogPost
   publisher: { "@id": ORG_ID },
 });
 
-export const serviceLd = (s: { name: string; description: string; path: string; price: string }) => ({
+const GLOSSARY_SET_ID = `${SITE.url}/glossary#set`;
+
+export const definedTermSetLd = (terms: { term: string; path: string }[]) => ({
+  "@context": "https://schema.org",
+  "@type": "DefinedTermSet",
+  "@id": GLOSSARY_SET_ID,
+  name: "Tax and GST glossary",
+  description: "Plain-English meanings of Indian income tax, GST, TDS, audit and property tax terms, by Ranga & Company, Jodhpur.",
+  url: absoluteUrl("/glossary"),
+  hasDefinedTerm: terms.map((t) => ({ "@type": "DefinedTerm", name: t.term, url: absoluteUrl(t.path) })),
+});
+
+export const definedTermLd = (t: { term: string; abbr?: string; definition: string; path: string }) => ({
+  "@context": "https://schema.org",
+  "@type": "DefinedTerm",
+  name: t.term,
+  alternateName: t.abbr,
+  description: t.definition,
+  url: absoluteUrl(t.path),
+  inDefinedTermSet: GLOSSARY_SET_ID,
+});
+
+export const serviceLd =(s: { name: string; description: string; path: string; price: string }) => ({
   "@context": "https://schema.org",
   "@type": "Service",
   name: s.name,

@@ -11,15 +11,18 @@ type Props = {
   currentHref?: string;
   heading?: string;
   maxPosts?: number;
+  /** Post hrefs to show first, in this order. */
+  pinnedPosts?: string[];
 };
 
 /** The interlinking block used at the bottom of articles and service pages. */
-export default function RelatedLinks({ services, currentHref, heading = "Keep reading", maxPosts = 3 }: Props) {
+export default function RelatedLinks({ services, currentHref, heading = "Keep reading", maxPosts = 3, pinnedPosts = [] }: Props) {
   // Most topically related first (shared services), newest as the tie-break (POSTS is newest-first).
   const overlap = (p: Post) => p.services.filter((s) => services.includes(s)).length;
+  const pin = (p: Post) => (pinnedPosts.includes(p.href) ? pinnedPosts.length - pinnedPosts.indexOf(p.href) : 0);
   const posts: Post[] = POSTS.filter((p) => p.href !== currentHref)
     .map((p, i) => ({ p, i }))
-    .sort((a, b) => overlap(b.p) - overlap(a.p) || a.i - b.i)
+    .sort((a, b) => pin(b.p) - pin(a.p) || overlap(b.p) - overlap(a.p) || a.i - b.i)
     .slice(0, maxPosts)
     .map(({ p }) => p);
   return (

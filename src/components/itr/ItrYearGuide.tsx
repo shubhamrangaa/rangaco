@@ -5,6 +5,7 @@ import PageHero from "@/components/content/PageHero";
 import FaqList from "@/components/content/FaqList";
 import RelatedLinks from "@/components/content/RelatedLinks";
 import CtaBand from "@/components/content/CtaBand";
+import KeyTerms from "@/components/content/KeyTerms";
 import Cta from "@/components/ui/Cta";
 import { getService, serviceHref } from "@/content/services";
 import { SITE, telHref, whatsappHref, yearsInPractice } from "@/content/site";
@@ -129,6 +130,7 @@ export default function ItrYearGuide({ year }: { year: ItrYear }) {
       <section aria-labelledby="itr-faq" className="mt-16 max-w-[740px]">
         <h2 id="itr-faq" className="mb-6 text-title font-medium text-ink">Frequently asked questions</h2>
         <FaqList faqs={year.faqs} />
+        <KeyTerms service="itr-filing-jodhpur" />
       </section>
 
       <RelatedLinks services={["itr-filing-jodhpur", "income-tax-advisory-jodhpur", "income-tax-notice-reply-jodhpur"]} heading="Related services and guides" maxPosts={2} />

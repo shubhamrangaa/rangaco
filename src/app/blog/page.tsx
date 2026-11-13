@@ -39,6 +39,14 @@ export default function BlogIndex() {
           ))}
         </ul>
 
+        <section aria-labelledby="glossary-cta" className="card mt-20 flex flex-wrap items-center justify-between gap-4 p-6">
+          <div>
+            <h2 id="glossary-cta" className="text-xl font-medium text-ink">Tax and GST glossary</h2>
+            <p className="mt-1 text-sm text-ink-muted">Plain-English meanings of ITR, TDS, HRA, input tax credit and more.</p>
+          </div>
+          <Link href="/glossary" className="rounded-full border border-line px-4 py-2 text-sm font-medium text-ink transition-colors ease-spring hover:border-brand hover:text-brand">Browse the glossary →</Link>
+        </section>
+
         <section aria-labelledby="yearly-guides" className="mt-20">
           <h2 id="yearly-guides" className="text-title font-medium text-ink">Yearly ITR guides</h2>
           <ul className="mt-6 flex flex-wrap gap-3">

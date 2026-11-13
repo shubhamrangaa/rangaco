@@ -3,6 +3,7 @@ import { SITE } from "@/content/site";
 import { SERVICES, serviceHref } from "@/content/services";
 import { AUTHORS, POSTS, authorHref } from "@/content/blog";
 import { ITR_YEARS, itrHref } from "@/content/itr-years";
+import { GLOSSARY, GLOSSARY_REVIEWED, glossaryHref } from "@/content/glossary";
 
 /** Generated from the content layer, so new services, posts, authors and ITR years appear automatically. */
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -20,6 +21,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...Object.values(AUTHORS)
       .filter((a) => a.kind === "Person")
       .map((a) => ({ url: url(authorHref(a)), lastModified: new Date(latestPost), changeFrequency: "monthly" as const, priority: 0.5 })),
+    { url: url("/glossary"), lastModified: new Date(GLOSSARY_REVIEWED), changeFrequency: "monthly", priority: 0.7 },
+    ...GLOSSARY.map((t) => ({ url: url(glossaryHref(t.slug)), lastModified: new Date(GLOSSARY_REVIEWED), changeFrequency: "yearly" as const, priority: 0.6 })),
     { url: url("/about"), lastModified: now, changeFrequency: "yearly", priority: 0.6 },
   ];
 }

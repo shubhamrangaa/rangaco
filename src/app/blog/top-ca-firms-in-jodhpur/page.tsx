@@ -184,14 +184,6 @@ const FAQS: Faq[] = [
     a: "A chartered accountant is a member of the Institute of Chartered Accountants of India (ICAI). Only a practising CA can sign a tax audit report under section 44AB, audit company accounts, or issue certificates with a UDIN. A tax consultant can prepare and file ITR, GST and TDS returns and handle routine compliance.",
   },
   {
-    q: "Do I need a CA for GST registration in Jodhpur?",
-    a: "No. GST registration can be done yourself on the GST portal, or by a tax consultant or GST practitioner; a CA is not legally required. Most businesses use a professional to avoid rejections caused by document mismatches. Ranga & Company's GST registration starts at ₹2,999 with a 3–5 working day turnaround.",
-  },
-  {
-    q: "When is a tax audit mandatory?",
-    a: "For FY 2025-26, a tax audit under section 44AB is required when business turnover exceeds ₹1 crore (₹10 crore if cash receipts and cash payments are each within 5% of the total), or when professional receipts exceed ₹50 lakh (₹75 lakh if cash receipts are within 5%). It can also apply to some presumptive-tax cases. A practising CA must sign it.",
-  },
-  {
     q: "How can I check if a CA in Jodhpur is genuine?",
     a: "Ask for the CA's ICAI membership number and the firm's registration number (FRN), and check them on the ICAI website. Every audit report or certificate a CA signs must carry a UDIN (Unique Document Identification Number), which anyone can verify at udin.icai.org.",
   },

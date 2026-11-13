@@ -6,6 +6,7 @@ import Breadcrumbs from "@/components/layout/Breadcrumbs";
 import FaqList from "@/components/content/FaqList";
 import RelatedLinks from "@/components/content/RelatedLinks";
 import CtaBand from "@/components/content/CtaBand";
+import KeyTerms from "@/components/content/KeyTerms";
 import JsonLd from "@/components/ui/JsonLd";
 import { authorHref, formatDate, type Post } from "@/content/blog";
 import type { Faq } from "@/content/faqs";
@@ -138,6 +139,8 @@ export default function ArticleLayout({ post, toc, takeaways, faqs, children }: 
                 <FaqList faqs={faqs} />
               </section>
             )}
+
+            <KeyTerms post={post.href} services={post.services.slice(0, 1)} />
 
             <div className="card mt-16 p-6">
               <p className="mb-3 text-xs font-medium uppercase tracking-wider text-ink-muted">About the author</p>

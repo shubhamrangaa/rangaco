@@ -4,6 +4,7 @@ import PageHero from "@/components/content/PageHero";
 import FaqList from "@/components/content/FaqList";
 import RelatedLinks from "@/components/content/RelatedLinks";
 import CtaBand from "@/components/content/CtaBand";
+import KeyTerms from "@/components/content/KeyTerms";
 import Cta from "@/components/ui/Cta";
 import JsonLd from "@/components/ui/JsonLd";
 import { serviceHref, type Service } from "@/content/services";
@@ -35,6 +36,7 @@ export default function ServicePage({ service, faqs = [], children }: { service:
               <FaqList faqs={faqs} />
             </section>
           )}
+          <KeyTerms service={service.slug} />
         </div>
 
         <aside className="min-[1024px]:order-none">

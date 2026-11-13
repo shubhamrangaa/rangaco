@@ -124,7 +124,29 @@ export const articleLd = (post: Post, authorPath: string) => ({
   publisher: { "@id": ORG_ID },
 });
 
-export const serviceLd = (s: { name: string; description: string; path: string; price: string }) => ({
+const GLOSSARY_SET_ID = `${SITE.url}/glossary#set`;
+
+export const definedTermSetLd = (terms: { term: string; path: string }[]) => ({
+  "@context": "https://schema.org",
+  "@type": "DefinedTermSet",
+  "@id": GLOSSARY_SET_ID,
+  name: "Tax and GST glossary",
+  description: "Plain-English meanings of Indian income tax, GST, TDS, audit and property tax terms, by Ranga & Company, Jodhpur.",
+  url: absoluteUrl("/glossary"),
+  hasDefinedTerm: terms.map((t) => ({ "@type": "DefinedTerm", name: t.term, url: absoluteUrl(t.path) })),
+});
+
+export const definedTermLd = (t: { term: string; abbr?: string; definition: string; path: string }) => ({
+  "@context": "https://schema.org",
+  "@type": "DefinedTerm",
+  name: t.term,
+  alternateName: t.abbr,
+  description: t.definition,
+  url: absoluteUrl(t.path),
+  inDefinedTermSet: GLOSSARY_SET_ID,
+});
+
+export const serviceLd =(s: { name: string; description: string; path: string; price: string }) => ({
   "@context": "https://schema.org",
   "@type": "Service",
   name: s.name,

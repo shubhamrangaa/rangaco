@@ -24,6 +24,7 @@ src/
     faqs.ts        homepage FAQs
     testimonials.ts  real, attributable client quotes only
     calendar.ts    statutory due dates for the homepage infographics
+    gst-calendar.ts  GST due dates for /gst-calendar, generated from rules (see "Roll the GST calendar forward")
   lib/seo.ts   pageMetadata() + JSON-LD builders. Every page's metadata goes through it.
   components/
     layout/    SiteHeader, MobileNav, SiteFooter, Breadcrumbs, Logo
@@ -48,6 +49,8 @@ src/
 The sitemap, blog index, author page and related-links blocks pick it up automatically.
 
 **Add next year's ITR guide** – copy the first entry in `src/content/itr-years.ts`, update dates/FAQs/sources, and create `src/app/itr-filing-<year>-jodhpur/page.tsx` (three lines; copy the previous year's). Older years automatically show an "archived" notice linking to the newest.
+
+**Roll the GST calendar forward** – `/gst-calendar` (hub, one page per month, per due date and per return) is generated from the rules in `src/content/gst-calendar.ts`. Each year, move `GST_CALENDAR_RANGE` and `GST_CALENDAR_FY`, update the year in the item `h1`s, and bump `GST_CALENDAR_REVIEWED`. When CBIC extends a date, add one line to `DATE_CHANGES`. The checks at the bottom of the file fail the build if a rule produces a wrong date.
 
 **Add a testimonial** – only with the client's permission; append to `src/content/testimonials.ts`.
 

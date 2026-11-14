@@ -1,4 +1,5 @@
 import { YEARLY_CALENDAR, type CalendarEvent } from "@/content/calendar";
+import Link from "next/link";
 import SectionHeading from "./SectionHeading";
 
 // Financial year order: April -> March.
@@ -51,6 +52,7 @@ export default function YearCalendar() {
         </ol>
       </div>
       <p className="mt-3 text-xs text-ink-muted min-[960px]:hidden">Scroll sideways to see the full year.</p>
+      <Link href="/gst-calendar" className="mt-5 inline-block text-sm font-medium text-brand hover:underline">Every monthly and quarterly GST due date: open the GST calendar →</Link>
     </section>
   );
 }

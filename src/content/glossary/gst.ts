@@ -210,7 +210,7 @@ export const GST_TERMS: GlossaryTerm[] = [
       ["GSTR-3B", "Summary and payment: 20th (Rajasthan QRMP: 24th after quarter)"],
       ["GSTR-9", "Annual return: 31 December after the financial year"],
       ["Late fee, GSTR-3B", "₹50 a day (₹20 for nil) plus 18% interest a year"],
-      ["Composition", "CMP-08 quarterly by the 18th; GSTR-4 annually by 30 April"],
+      ["Composition", "CMP-08 quarterly by the 18th; GSTR-4 annually by 30 June"],
     ],
     sections: [
       {
@@ -258,7 +258,7 @@ export const GST_TERMS: GlossaryTerm[] = [
     facts: [
       ["Turnover limit", "₹1.5 crore for goods (Rajasthan); ₹50 lakh for service providers"],
       ["Rates", "1% traders and manufacturers, 5% restaurants, 6% service providers"],
-      ["Returns", "CMP-08 quarterly (by 18th) and GSTR-4 annually (by 30 April)"],
+      ["Returns", "CMP-08 quarterly (by 18th) and GSTR-4 annually (by 30 June)"],
       ["Cannot", "Claim ITC, collect GST from customers, or make inter-state supplies"],
       ["Invoice", "Bill of supply marked 'composition taxable person'"],
     ],

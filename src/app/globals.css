@@ -31,6 +31,10 @@
   --duration-spring: 680ms;
   --duration-snappy: 470ms;
   --duration-bouncy: 910ms;
+
+  /* Enter animations for content an interaction just swapped in (keyed elements). */
+  --animate-rise: rise var(--duration-snappy) var(--ease-spring-snappy) both;
+  --animate-slide: slide var(--duration-snappy) var(--ease-spring-snappy) both;
 }
 
 /* ---------- Base ---------- */
@@ -64,6 +68,9 @@
 }
 @keyframes draw { from { stroke-dashoffset: var(--len, 400); } to { stroke-dashoffset: 0; } }
 @keyframes pulse-dot { 0%, 100% { opacity: 0.35; transform: scale(1); } 50% { opacity: 1; transform: scale(1.6); } }
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+/* --dir: 1 slides in from the right, -1 from the left. */
+@keyframes slide { from { opacity: 0; transform: translateX(calc(var(--dir, 1) * 28px)); } }
 
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {

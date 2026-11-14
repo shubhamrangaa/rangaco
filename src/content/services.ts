@@ -23,6 +23,8 @@ export type Service = {
   /** One line for cards. */
   summary: string;
   price: string;
+  /** What the price covers and how other tiers are priced; shown in the page's fees section. */
+  priceNotes?: string[];
   icon: ServiceIcon;
   related: string[];
   /** Shown on the homepage grid. */
@@ -78,6 +80,7 @@ export const SERVICES: Service[] = [
       "TDS and TCS deposits, quarterly returns and Form 16/16A for Jodhpur businesses. Challans on time, corrections handled. Packages from ₹2,500 a quarter.",
     summary: "Monthly deposits, quarterly returns and Form 16/16A.",
     price: "From ₹2,500 / quarter",
+    priceNotes: ["The starting package covers up to 200 deductee lines a quarter", "Correction statements are billed separately"],
     icon: "landmark",
     related: ["accounting-payroll-jodhpur", "statutory-audit-jodhpur", "virtual-cfo-jodhpur"],
     featured: true,
@@ -91,6 +94,7 @@ export const SERVICES: Service[] = [
       "Statutory and tax audit support for Jodhpur companies, LLPs and firms. We prepare your books and schedules; reports are signed by our partner CA firm.",
     summary: "Audit-ready books, with reports signed by our partner CA firm.",
     price: "From ₹50,000",
+    priceNotes: ["Small company: ₹50,000 to ₹1.5 lakh", "Medium enterprise: quoted after scoping"],
     icon: "shield-check",
     related: ["accounting-payroll-jodhpur", "virtual-cfo-jodhpur", "tds-tcs-compliance-jodhpur"],
     featured: true,
@@ -104,6 +108,7 @@ export const SERVICES: Service[] = [
       "Outsourced bookkeeping and payroll for Jodhpur businesses in Tally, Zoho Books or QuickBooks, with GST and TDS reconciled monthly. From ₹5,000 a month.",
     summary: "Bookkeeping in Tally or Zoho, payslips, PF and ESI.",
     price: "From ₹5,000 / month",
+    priceNotes: ["Starter plan: up to 200 vouchers a month", "Your choice of Tally, Zoho Books or QuickBooks"],
     icon: "book-open",
     related: ["statutory-audit-jodhpur", "virtual-cfo-jodhpur", "gst-return-filing-jodhpur"],
     featured: true,
@@ -117,6 +122,7 @@ export const SERVICES: Service[] = [
       "Part-time CFO for Jodhpur SMEs: monthly MIS, cash-flow forecasts, budgets and investor-ready financials, without a full-time salary. From ₹25,000 a month.",
     summary: "MIS, cash-flow forecasts and budgets without a full-time CFO.",
     price: "From ₹25,000 / month",
+    priceNotes: ["Lite: monthly MIS and a review call, ₹25,000 a month", "Growth: adds an on-site visit and budgeting, ₹40,000 a month"],
     icon: "line-chart",
     related: ["accounting-payroll-jodhpur", "statutory-audit-jodhpur", "income-tax-advisory-jodhpur"],
   },
@@ -153,6 +159,7 @@ export const SERVICES: Service[] = [
       "Got an income tax notice? We read it, draft the reply, upload it on the portal and represent you in Jodhpur hearings. Flat fee from ₹7,500.",
     summary: "Notices read, replies drafted and filed, hearings attended.",
     price: "From ₹7,500",
+    priceNotes: ["Flat fee for notices with a demand of up to ₹10 lakh", "Higher-complexity cases are quoted after we review the notice"],
     icon: "mail-warning",
     related: ["income-tax-advisory-jodhpur", "itr-filing-jodhpur", "statutory-audit-jodhpur"],
   },

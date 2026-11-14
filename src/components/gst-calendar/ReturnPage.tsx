@@ -1,35 +1,19 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import { Check } from "lucide-react";
 import PageHero from "@/components/content/PageHero";
 import FaqList from "@/components/content/FaqList";
 import RelatedLinks from "@/components/content/RelatedLinks";
 import CtaBand from "@/components/content/CtaBand";
 import DueBadge from "@/components/gst-calendar/DueBadge";
-import { GST_FILERS, GST_ITEMS, GST_ITEM_IDS, QRMP_STATE_GROUPS, eventsOf, isGstItemId, itemCopy } from "@/content/gst-calendar";
+import { GST_FILERS, GST_ITEMS, GST_PAGE_MONTHS, QRMP_STATE_GROUPS, eventsOf, itemCopy, type GstItemId } from "@/content/gst-calendar";
 import { glossaryHref } from "@/content/glossary";
 import { longDate, weekday } from "@/lib/dates";
-import { GST_CALENDAR_PATH, dateHref, itemHref } from "@/lib/gst-calendar-urls";
-import { pageMetadata } from "@/lib/seo";
-
-type Params = { params: Promise<{ item: string }> };
-
-export const dynamicParams = false;
-export const generateStaticParams = () => GST_ITEM_IDS.map((item) => ({ item }));
-
-export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const { item } = await params;
-  if (!isGstItemId(item)) return {};
-  const { title, description } = itemCopy(item);
-  return pageMetadata({ title, description, path: itemHref(item) });
-}
+import { GST_CALENDAR_PATH, itemHref, monthHref } from "@/lib/gst-calendar-urls";
 
 const EVERY = { quarter: "Every quarter", "half-year": "Twice a year", year: "Once a year" };
 
-export default async function ItemPage({ params }: Params) {
-  const { item: id } = await params;
-  if (!isGstItemId(id)) notFound();
+/** The page for one return or deadline, e.g. /gst-calendar/gstr-3b-due-date. */
+export default function ReturnPage({ id }: { id: GstItemId }) {
   const item = GST_ITEMS[id];
   const events = eventsOf(id);
   const late = ["return", "payment"].includes(item.kind);
@@ -66,7 +50,8 @@ export default async function ItemPage({ params }: Params) {
                   <tr key={`${e.date}-${e.variant}`}>
                     <td className="whitespace-nowrap">{e.period}</td>
                     <td className="whitespace-nowrap">
-                      <Link href={dateHref(e.date)}>{longDate(e.date)}</Link>
+                      {/* Link only when that month's page currently shows this year's month. */}
+                      {GST_PAGE_MONTHS.includes(e.date.slice(0, 7)) ? <Link href={monthHref(e.date)}>{longDate(e.date)}</Link> : longDate(e.date)}
                       <span className="block text-sm">{weekday(e.date)}</span>
                     </td>
                     <td>{e.variant ?? e.filers.map((f) => GST_FILERS[f].label).join(", ")}{e.note ? `. ${e.note}` : ""}</td>

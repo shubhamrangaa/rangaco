@@ -5,6 +5,8 @@ export type Testimonial = {
   context: string;
   source: "google" | "client";
   sourceUrl?: string;
+  /** Case study href, when this client also has one. */
+  caseStudy?: string;
 };
 
 export const TESTIMONIALS: Testimonial[] = [
@@ -14,6 +16,7 @@ export const TESTIMONIALS: Testimonial[] = [
     context: "Google review",
     source: "google",
     sourceUrl: "https://share.google/XC9wW8eei4KBh1r28",
+    caseStudy: "/case-studies/first-itr-share-capital-gains-it-professional",
   },
 ];
 

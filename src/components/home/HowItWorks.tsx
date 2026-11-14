@@ -1,7 +1,7 @@
 import { FileCheck2, MessageCircle, ScanSearch } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 
-const STEPS = [
+export const STEPS = [
   { icon: MessageCircle, title: "Send your documents", body: "Share Form 16, bank statements or invoices on WhatsApp or email. No office visit needed." },
   { icon: ScanSearch, title: "We prepare and check", body: "We compute your tax under both regimes, reconcile with AIS and GSTR-2B, and flag anything that looks off." },
   { icon: FileCheck2, title: "You approve, we file", body: "You see the summary before anything is filed, then e-verify with an Aadhaar OTP. Done." },

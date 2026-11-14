@@ -6,7 +6,7 @@ import Cta from "@/components/ui/Cta";
 import type { GstEvent, GstFiler, GstItem } from "@/content/gst-calendar";
 import { whatsappHref } from "@/content/site";
 import { MONTH_NAMES, addDays, dayOfWeek, diffDays, longDate, monthLabel, shiftMonth, shortDate, weekday } from "@/lib/dates";
-import { dateHref } from "@/lib/gst-calendar-urls";
+import { itemHref } from "@/lib/gst-calendar-urls";
 import DueBadge from "./DueBadge";
 import { useToday } from "./useToday";
 
@@ -443,7 +443,7 @@ export default function GstCalendar({ events, items, filers, months, initialMont
                     })}
                   </div>
                   <div className="mt-4 flex flex-col gap-2">
-                    <Cta href={dateHref(date)} variant="dark" icon="arrow">Full guide to {shortDate(date)}</Cta>
+                    <Cta href={itemHref(selected[0].item)} variant="dark" icon="arrow">All {items[selected[0].item].name} dates</Cta>
                     <Cta href={whatsappHref(`Hi, I need help with ${names(selected).replaceAll(" · ", ", ")} due on ${longDate(date)}.`)} variant="soft" icon="whatsapp">
                       Ask us on WhatsApp
                     </Cta>

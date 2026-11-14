@@ -50,7 +50,9 @@ The sitemap, blog index, author page and related-links blocks pick it up automat
 
 **Add next year's ITR guide** – copy the first entry in `src/content/itr-years.ts`, update dates/FAQs/sources, and create `src/app/itr-filing-<year>-jodhpur/page.tsx` (three lines; copy the previous year's). Older years automatically show an "archived" notice linking to the newest.
 
-**Roll the GST calendar forward** – `/gst-calendar` (hub, one page per month, per due date and per return) is generated from the rules in `src/content/gst-calendar.ts`. Each year, move `GST_CALENDAR_RANGE` and `GST_CALENDAR_FY`, update the year in the item `h1`s, and bump `GST_CALENDAR_REVIEWED`. When CBIC extends a date, add one line to `DATE_CHANGES`. The checks at the bottom of the file fail the build if a rule produces a wrong date.
+**Roll the GST calendar forward** – `/gst-calendar` (the hub, one page per calendar month such as `/gst-calendar/gst-due-dates-november`, and one per return such as `/gst-calendar/gstr-3b-due-date`) is generated from the rules in `src/content/gst-calendar.ts`. Each year, move `GST_CALENDAR_RANGE` and `GST_CALENDAR_FY`, update the year in the item `h1`s, and bump `GST_CALENDAR_REVIEWED`. URLs stay the same: each month page shows the next occurrence of its month on every deploy. When CBIC extends a date, add one line to `DATE_CHANGES`. The checks at the bottom of the file fail the build if a rule produces a wrong date.
+
+**AI agents** – `/llms.txt` and `/index.md` (the homepage as Markdown) are route handlers in `src/app` built from `src/content`, so they update with the site. Add a new hub page to `src/app/llms.txt/route.ts` by hand.
 
 **Add a testimonial** – only with the client's permission; append to `src/content/testimonials.ts`.
 
@@ -60,5 +62,6 @@ The sitemap, blog index, author page and related-links blocks pick it up automat
 - Calls to action are real links (`tel:`, `wa.me`, internal pages) via `Cta`, so they work without JavaScript.
 - Every inner page renders `Breadcrumbs` (visible trail + `BreadcrumbList` schema). One `<h1>` per page.
 - Motion uses CSS only: spring curves in `globals.css` (`ease-spring*` utilities), scroll reveals via `.reveal`. Everything respects `prefers-reduced-motion`.
+- Never put a year in the URL of a page that recurs every year (calendars, due dates, yearly guides). Put the year in the title and H1 and update the page in place, so it keeps its rankings.
 - Facts about the firm must be accurate: Ranga & Company is a tax consultancy; audits and certificates are signed by a partner CA firm. Don't describe the firm as a CA firm.
 - Tax content quoting dates or thresholds should cite the year it applies to and be reviewed by the partner CA.

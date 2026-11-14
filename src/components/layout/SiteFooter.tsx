@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MapPin, Mail, MessageCircle, Phone } from "lucide-react";
+import { Clock, MapPin, Mail, MessageCircle, Phone } from "lucide-react";
 import { SITE, telHref, whatsappHref } from "@/content/site";
 import { SERVICES, serviceHref } from "@/content/services";
 import { ITR_YEARS, itrHref } from "@/content/itr-years";
@@ -63,6 +63,7 @@ export default function SiteFooter() {
               <address className="not-italic">{address.street}, {address.locality} {address.postalCode}</address>
             </a>
           </li>
+          <li className={`${linkCls} flex items-center gap-2`}><Clock className="h-4 w-4" aria-hidden="true" />{SITE.hours.display}</li>
         </Column>
       </div>
       <div className="border-t border-line">

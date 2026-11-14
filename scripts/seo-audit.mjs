@@ -164,7 +164,6 @@ for (const r of routes) {
   // Social tags, indexing, language, anchors, empty links.
   for (const k of ["og:title", "og:description", "og:url", "og:image", "twitter:card"]) if (!p.meta[k]) add(r, "social-tag", `missing ${k}`);
   if (p.meta["og:url"] && p.meta["og:url"] !== canonical) add(r, "social-tag", `og:url ${p.meta["og:url"]} != canonical`);
-  if (/noindex/.test(p.meta.robots || "")) add(r, "noindex", p.meta.robots);
   if (!p.lang) add(r, "html-lang", "missing");
   p.samePageAnchors.filter((id) => !p.ids.has(id)).forEach((id) => add(r, "broken-anchor", `#${id}`));
   p.emptyLinks.forEach((h) => add(r, "empty-link-text", h));
@@ -203,7 +202,12 @@ for (const r of routes) {
 // Sitemap coverage.
 const sitemap = readFileSync(join(ROOT, "sitemap.xml.body"), "utf8");
 const inSitemap = all(/<loc>([^<]+)<\/loc>/g, sitemap).map((m) => m[1].replace(SITE, "") || "/");
-for (const r of routes) if (!inSitemap.includes(r)) add(r, "not-in-sitemap", "");
+// A noindex page must stay out of the sitemap; every other page must be in it.
+for (const r of routes) {
+  const noindex = /noindex/.test(pages[r].meta.robots || "");
+  if (noindex && inSitemap.includes(r)) add(r, "noindex-in-sitemap", pages[r].meta.robots);
+  else if (!noindex && !inSitemap.includes(r)) add(r, "not-in-sitemap", "");
+}
 for (const u of inSitemap) if (!routes.includes(u)) add(u, "sitemap-url-missing", "");
 
 const report = {
@@ -230,5 +234,5 @@ for (const [k, list] of Object.entries(byKind)) {
   console.log(`\n${k} (${list.length})`);
   for (const i of list) console.log(`  ${i.route}  ${i.detail}`);
 }
-const fatal = issues.filter((i) => ["broken-link", "broken-anchor", "h1-count", "missing-title", "missing-description", "invalid-json-ld", "orphan", "sitemap-url-missing", "noindex", "duplicate-title"].includes(i.kind) || i.kind.startsWith("schema-"));
+const fatal = issues.filter((i) => ["broken-link", "broken-anchor", "h1-count", "missing-title", "missing-description", "invalid-json-ld", "orphan", "sitemap-url-missing", "noindex-in-sitemap", "duplicate-title"].includes(i.kind) || i.kind.startsWith("schema-"));
 process.exit(fatal.length ? 1 : 0);

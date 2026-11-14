@@ -1,5 +1,7 @@
-import { ArrowUpRight, Quote, Star } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, ArrowUpRight, Quote, Star } from "lucide-react";
 import { TESTIMONIALS } from "@/content/testimonials";
+import { getCaseStudy } from "@/content/case-studies";
 import { SITE } from "@/content/site";
 import SectionHeading from "./SectionHeading";
 
@@ -22,6 +24,12 @@ export default function Testimonials() {
               <blockquote className="mt-6 flex-1 text-[24px] font-medium leading-snug tracking-[-0.02em] text-ink min-[760px]:text-[28px]">
                 &ldquo;{t.quote}&rdquo;
               </blockquote>
+              {t.caseStudy && (
+                <Link href={t.caseStudy} className="group mt-6 inline-flex items-center gap-1.5 text-[15px] font-medium text-brand">
+                  Case study: {getCaseStudy(t.caseStudy).metaTitle}
+                  <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform ease-spring group-hover:translate-x-1" />
+                </Link>
+              )}
               <figcaption className="mt-8 flex items-center gap-3 border-t border-line pt-5">
                 <span aria-hidden="true" className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-soft text-sm font-semibold text-brand">
                   {t.name.charAt(0)}

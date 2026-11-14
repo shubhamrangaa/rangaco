@@ -1,11 +1,11 @@
-import { SERVICES } from "@/content/services";
+import { SERVICES, getService } from "@/content/services";
 import { SITE, yearsInPractice } from "@/content/site";
 
 export default function ProofStrip() {
   const items = [
     { value: `${yearsInPractice()}+`, label: `years in practice, since ${SITE.foundingYear}` },
     { value: String(SERVICES.length), label: "tax and compliance services" },
-    { value: "₹1,200", label: "starting fee for ITR filing" },
+    { value: getService("itr-filing-jodhpur").price.replace(/^From /, ""), label: "starting fee for ITR filing" },
     { value: "1 day", label: "typical turnaround for most filings" },
   ];
   return (

@@ -51,7 +51,7 @@ export default function AboutPage() {
       <h2>Our Commitment to Jodhpur & Rajasthan</h2>
       <p>As a local firm deeply rooted in Jodhpur, we understand the unique challenges and opportunities that businesses in Rajasthan face. Our local expertise combined with national-level knowledge helps us serve businesses across the state.</p>
       <h2>Client Success Stories</h2>
-      <p>Over the years, we’ve helped thousands of businesses and individuals achieve their financial goals. From small startups to established enterprises, our clients trust us with their most important financial decisions.</p>
+      <p>Over the years, we’ve helped thousands of businesses and individuals achieve their financial goals. From small startups to established enterprises, our clients trust us with their most important financial decisions. Read <Link href="/case-studies">our client case studies</Link> for real examples, told with the client’s permission.</p>
       <h2>Get Started Today</h2>
       <p>Whether you’re a business owner looking for comprehensive financial services or an individual needing help with tax filing, our team is ready to assist you. Contact us for a free consultation and discover how we can help you achieve your financial objectives.</p>
       </div>

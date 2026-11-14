@@ -3,7 +3,7 @@ import { ArrowRight, Clock, Layers, Star } from "lucide-react";
 import { SITE } from "@/content/site";
 import SectionHeading from "./SectionHeading";
 
-const FEATURES = [
+export const FEATURES = [
   { icon: Star, title: `Family-run since ${SITE.foundingYear}`, body: "Three decades of Jodhpur returns, notices and audits. You deal with the same people every year." },
   { icon: Clock, title: "One-day turnaround", body: "Most filings are completed within a single working day of receiving complete documents." },
   { icon: Layers, title: "One roof", body: "ITR, GST, TDS, payroll and notices handled together, with our partner CA firm for audits and certificates." },

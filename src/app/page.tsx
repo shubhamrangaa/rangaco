@@ -11,22 +11,29 @@ import LatestPosts from "@/components/home/LatestPosts";
 import SectionHeading from "@/components/home/SectionHeading";
 import FaqList from "@/components/content/FaqList";
 import CtaBand from "@/components/content/CtaBand";
+import JsonLd from "@/components/ui/JsonLd";
 import { HOME_FAQS } from "@/content/faqs";
-import { pageMetadata } from "@/lib/seo";
+import { SITE } from "@/content/site";
+import { getService } from "@/content/services";
+import { pageMetadata, websiteLd } from "@/lib/seo";
+
+const itrFee = getService("itr-filing-jodhpur").price.replace(/^From /, "");
 
 export const metadata: Metadata = {
   ...pageMetadata({
     title: "Tax Consultant in Jodhpur for ITR & GST",
-    description:
-      "Tax consultant in Jodhpur since 1990: ITR filing from ₹1,200, GST registration and returns, TDS, accounting and notice replies, with a partner CA firm for audits.",
+    description: `Tax consultant in Jodhpur since ${SITE.foundingYear}: ITR filing from ${itrFee}, GST registration and returns, TDS, accounting and notice replies. Audits via a partner CA firm.`,
     path: "/",
   }),
   title: { absolute: "Tax Consultant in Jodhpur for ITR & GST | Ranga & Company" },
+  // Plain-Markdown copy of this page for AI agents (src/app/index.md).
+  alternates: { canonical: "/", types: { "text/markdown": "/index.md" } },
 };
 
 export default function Home() {
   return (
     <main>
+      <JsonLd data={websiteLd()} />
       <Hero />
       <ProofStrip />
       <TrustedBy />

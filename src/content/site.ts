@@ -19,6 +19,7 @@ export const SITE = {
     country: "IN",
   },
   geo: { lat: 26.2837, lng: 73.0147 },
+  hours: { schema: "Mo-Sa 10:00-20:00", display: "Mon–Sat, 10 am – 8 pm" },
   googleProfile: "https://share.google/XC9wW8eei4KBh1r28",
   googleMapsCid: "https://maps.google.com/?cid=17480435237555029031",
   gaId: "G-VR86F4PW6B",

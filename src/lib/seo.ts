@@ -68,8 +68,20 @@ export const organizationLd = () => ({
   areaServed: [{ "@type": "City", name: "Jodhpur" }, { "@type": "State", name: "Rajasthan" }],
   priceRange: "₹₹",
   hasMap: SITE.googleProfile,
-  openingHours: "Mo-Sa 10:00-20:00",
+  openingHours: SITE.hours.schema,
   sameAs: [SITE.googleMapsCid, SITE.googleProfile],
+});
+
+/** Homepage only: lets Google show "Ranga & Company" as the site name. */
+export const websiteLd = () => ({
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${SITE.url}/#website`,
+  name: SITE.name,
+  alternateName: ["Ranga and Company", "rangaco.com"],
+  url: SITE.url,
+  inLanguage: "en-IN",
+  publisher: { "@id": ORG_ID },
 });
 
 export type Crumb = { name: string; path: string };

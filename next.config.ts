@@ -1,4 +1,7 @@
 import type { NextConfig } from "next";
+import { ITEM_SLUGS } from "./src/lib/gst-calendar-urls";
+
+const MONTHS = "january|february|march|april|may|june|july|august|september|october|november|december";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -45,6 +48,10 @@ const nextConfig: NextConfig = {
       { source: "/resources/:path*", destination: "/blog", permanent: true },
       { source: "/test-button", destination: "/", permanent: true },
       { source: "/small-business-itr-jodhpur", destination: "/blog/small-business-itr-jodhpur", permanent: true },
+      // The GST calendar's first URLs carried the year (/gst-calendar/november-2026/20, /gst-calendar/due-dates/gstr-3b).
+      ...Object.entries(ITEM_SLUGS).map(([item, slug]) => ({ source: `/gst-calendar/due-dates/${item}`, destination: `/gst-calendar/${slug}`, permanent: true })),
+      { source: "/gst-calendar/due-dates/:item", destination: "/gst-calendar/:item-due-date", permanent: true },
+      { source: `/gst-calendar/:month(${MONTHS})-:year(\\d{4})/:day(\\d{1,2})?`, destination: "/gst-calendar/gst-due-dates-:month", permanent: true },
     ];
   },
 };

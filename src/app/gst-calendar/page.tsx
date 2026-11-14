@@ -16,6 +16,7 @@ import {
   GST_ITEMS,
   GST_ITEM_IDS,
   GST_MONTHS,
+  GST_PAGE_MONTHS,
   eventsIn,
   isDue,
 } from "@/content/gst-calendar";
@@ -82,7 +83,7 @@ export default function GstCalendarPage() {
       <section aria-labelledby="months-heading" className="mt-24">
         <h2 id="months-heading" className="text-title font-medium text-ink">GST due dates month by month</h2>
         <ul className="mt-8 grid gap-3 min-[560px]:grid-cols-2 min-[900px]:grid-cols-3">
-          {GST_MONTHS.map((m) => {
+          {GST_PAGE_MONTHS.map((m) => {
             const due = eventsIn(m).filter(isDue);
             const yearly = [...new Set(due.filter((e) => ["year", "half-year"].includes(GST_ITEMS[e.item].every ?? "")).map((e) => GST_ITEMS[e.item].name))];
             return (

@@ -1,9 +1,10 @@
 // GST due dates, generated from the statutory rules below. Standard dates only: CBIC can extend any of them
 // by notification, and those one-off changes go in DATE_CHANGES. To roll the calendar forward, move
 // GST_CALENDAR_RANGE, check DATE_CHANGES and the hand-written year labels (GST_CALENDAR_FY, item h1s), and bump REVIEWED.
+// Page URLs never change: there is one page per calendar month and one per return, and each shows the current dates.
 import type { Faq } from "./faqs";
-import { MONTH_NAMES, daysInMonth, longDate, monthLabel, pad2, shiftMonth, shortDate, weekday } from "@/lib/dates";
-import { monthSlug } from "@/lib/gst-calendar-urls";
+import { MONTH_NAMES, daysInMonth, istToday, longDate, monthLabel, pad2, shiftMonth, shortDate, weekday } from "@/lib/dates";
+import { itemSlug, monthSlug } from "@/lib/gst-calendar-urls";
 
 export const GST_CALENDAR_REVIEWED = "2026-11-14";
 export const GST_CALENDAR_FY = "2026-27";
@@ -319,7 +320,6 @@ const ITEMS = {
 export type GstItemId = keyof typeof ITEMS;
 export const GST_ITEMS: Record<GstItemId, GstItem> = ITEMS;
 export const GST_ITEM_IDS = Object.keys(ITEMS) as GstItemId[];
-export const isGstItemId = (s: string): s is GstItemId => s in ITEMS;
 
 /** The repeating cycle for each kind of filer, in the order it happens. */
 export const GST_CYCLES: { filer: GstFiler; rhythm: string; steps: { when: string; item: GstItemId; text: string }[] }[] = [
@@ -426,10 +426,6 @@ export const GST_EVENTS: GstEvent[] = GST_MONTHS.flatMap(monthEvents)
   })
   .sort((a, b) => a.date.localeCompare(b.date) || GST_ITEM_IDS.indexOf(a.item) - GST_ITEM_IDS.indexOf(b.item));
 
-/** Dates with at least one entry, in order. Each has its own page. */
-export const GST_DATES = [...new Set(GST_EVENTS.map((e) => e.date))];
-
-export const eventsOn = (date: string) => GST_EVENTS.filter((e) => e.date === date);
 export const eventsIn = (month: string) => GST_EVENTS.filter((e) => e.date.startsWith(month));
 export const eventsOf = (item: GstItemId) => GST_EVENTS.filter((e) => e.item === item);
 /** "GSTR-3B for October 2026" */
@@ -437,7 +433,24 @@ export const eventTitle = (e: GstEvent) => `${GST_ITEMS[e.item].name} for ${e.pe
 /** False for GSTR-2B: it appears on the calendar but nothing is due. */
 export const isDue = (e: GstEvent) => GST_ITEMS[e.item].kind !== "info";
 
-export const monthFromSlug = (slug: string) => GST_MONTHS.find((m) => monthSlug(m) === slug);
+// ---------- Pages ----------
+
+// One page per calendar month. Each shows the next occurrence of its month in the range, counting from last
+// month (late filers still look it up), so the pages move forward on every deploy without a new URL.
+const freshFrom = shiftMonth(istToday().slice(0, 7), -1);
+export const GST_PAGE_MONTHS = MONTH_NAMES.map((_, i) => {
+  const all = GST_MONTHS.filter((m) => Number(m.slice(5)) === i + 1);
+  return all.find((m) => m >= freshFrom) ?? all.at(-1)!;
+}).sort();
+
+/** The month or return a /gst-calendar/<slug> page is about. */
+export const gstPageFromSlug = (slug: string) => {
+  const month = GST_PAGE_MONTHS.find((m) => monthSlug(m) === slug);
+  if (month) return { kind: "month" as const, month };
+  const id = GST_ITEM_IDS.find((i) => itemSlug(i) === slug);
+  return id && { kind: "item" as const, id };
+};
+export const GST_PAGE_SLUGS = [...GST_PAGE_MONTHS.map(monthSlug), ...GST_ITEM_IDS.map(itemSlug)];
 
 // ---------- Page copy built from the data ----------
 
@@ -458,44 +471,6 @@ export const MONTH_NOTES = [
 ];
 
 const list = (xs: string[]) => (xs.length < 2 ? xs.join("") : `${xs.slice(0, -1).join(", ")} and ${xs.at(-1)}`);
-/** Longest version that still fits a search snippet (the SEO audit allows 110-165 characters). */
-const describe = (lead: string, names: string[], tail: string) => {
-  for (let n = names.length; n > 1; n--) {
-    const s = `${lead} ${names.slice(0, n).join(", ")}${n < names.length ? " and more" : ""}. ${tail}`;
-    if (s.length <= 165) return s;
-  }
-  return `${lead} ${names[0]}${names.length > 1 ? " and more" : ""}. ${tail}`;
-};
-
-export function dateCopy(date: string) {
-  const events = eventsOn(date);
-  const names = [...new Set(events.map((e) => GST_ITEMS[e.item].name))];
-  const full = longDate(date);
-  // Brand suffix only when it fits in the 65-character title limit.
-  let title = `${full} GST Due Date: ${names[0]}`;
-  for (const n of names.slice(1)) if (`${title}, ${n}`.length <= 62) title += `, ${n}`;
-  const due = events.filter(isDue);
-  const faqs: Faq[] = [
-    {
-      q: `Which GST returns are due on ${full}?`,
-      a: due.length
-        ? `${weekday(date)}, ${full} is the due date for ${list(due.map((e) => `${eventTitle(e)}${e.variant ? ` (${e.variant})` : ""}`))}.`
-        : `Nothing has to be filed on ${full}. It is the day the GST portal generates ${list(events.map(eventTitle))}.`,
-    },
-    ...events.slice(0, 3).map((e) => ({
-      q: `Who does ${eventTitle(e)}${e.variant ? ` (${e.variant})` : ""} on ${shortDate(date)} apply to?`,
-      a: GST_ITEMS[e.item].who,
-    })),
-    { q: `What happens if I miss ${eventTitle(events[0])} on ${full}?`, a: GST_ITEMS[events[0].item].ifMissed },
-  ];
-  return {
-    title,
-    absoluteTitle: title.length > 47,
-    description: describe(`GST on ${weekday(date)}, ${full}:`, events.map(eventTitle), "Who it applies to, what to keep ready and what a late filing costs."),
-    faqs,
-  };
-}
-
 export function monthCopy(month: string) {
   const label = monthLabel(month);
   const events = eventsIn(month).filter(isDue);
@@ -570,3 +545,5 @@ const expectations: [string | undefined, string][] = [
 ];
 for (const [got, want] of expectations) if (got !== want) throw new Error(`GST calendar rule broken: expected ${want}, got ${got}`);
 for (const e of GST_EVENTS) if (Number(e.date.slice(8)) > daysInMonth(e.date.slice(0, 7))) throw new Error(`GST calendar: ${e.date} is not a real date`);
+if (GST_PAGE_MONTHS.some((m) => !m)) throw new Error("GST calendar: GST_CALENDAR_RANGE must cover all 12 months");
+if (new Set(GST_PAGE_SLUGS).size !== GST_PAGE_SLUGS.length) throw new Error("GST calendar: two pages share a URL");

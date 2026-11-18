@@ -10,6 +10,7 @@ Next.js 16 (App Router, fully static) · React 19 · Tailwind CSS 4 · TypeScrip
 npm run dev        # local dev server on http://localhost:3000
 npm run check      # lint + typecheck + production build (run before pushing)
 npm run audit:seo  # crawl the built site: broken links, orphans, headings, metadata
+npm run indexnow   # after a deploy: tell Bing about every sitemap URL (or pass paths: -- /blog/new-post)
 ```
 
 ## How the code is organised
@@ -53,6 +54,8 @@ The sitemap, blog index, author page and related-links blocks pick it up automat
 **Roll the GST calendar forward** – `/gst-calendar` (the hub, one page per calendar month such as `/gst-calendar/gst-due-dates-november`, and one per return such as `/gst-calendar/gstr-3b-due-date`) is generated from the rules in `src/content/gst-calendar.ts`. Each year, move `GST_CALENDAR_RANGE` and `GST_CALENDAR_FY`, update the year in the item `h1`s, and bump `GST_CALENDAR_REVIEWED`. URLs stay the same: each month page shows the next occurrence of its month on every deploy. When CBIC extends a date, add one line to `DATE_CHANGES`. The checks at the bottom of the file fail the build if a rule produces a wrong date.
 
 **AI agents** – `/llms.txt` and `/index.md` (the homepage as Markdown) are route handlers in `src/app` built from `src/content`, so they update with the site. Add a new hub page to `src/app/llms.txt/route.ts` by hand.
+
+**After a deploy that adds or changes pages** – run `npm run indexnow -- /changed/path` (or no paths for the whole sitemap). It pings IndexNow, which Bing (and through it ChatGPT search and Copilot) uses to recrawl within hours. The key lives in `scripts/indexnow.mjs` and `public/<key>.txt`; change both together. Google ignores IndexNow.
 
 **Add a testimonial** – only with the client's permission; append to `src/content/testimonials.ts`.
 
